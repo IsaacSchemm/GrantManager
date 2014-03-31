@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="GrantApp.Properties.Settings" SettingsPropertyName="Database1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.approach" Member="approaches">
+    <Type Name="approach">
+      <Column Name="approach_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="approach_type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="approach_contact_history" Member="contact_histories" ThisKey="approach_id" OtherKey="initial_approach_id" Type="contact_history" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[user]" Member="users">
+    <Type Name="user">
+      <Column Name="username" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="display_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="admin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="user_contact_history" Member="contact_histories" ThisKey="username" OtherKey="contacted_by" Type="contact_history" />
+      <Association Name="user_grant" Member="grants" ThisKey="username" OtherKey="grant_writer" Type="grant" />
+    </Type>
+  </Table>
+  <Table Name="dbo.changelog" Member="changelogs">
+    <Type Name="changelog">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="object_edited" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="details" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.contact_history" Member="contact_histories">
+    <Type Name="contact_history">
+      <Column Name="contact_history_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="grant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="initial_approach_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="contact_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="call_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="outcome" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="contacted_by" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="approach_contact_history" Member="approach" ThisKey="initial_approach_id" OtherKey="approach_id" Type="approach" IsForeignKey="true" />
+      <Association Name="user_contact_history" Member="user" ThisKey="contacted_by" OtherKey="username" Type="user" IsForeignKey="true" />
+      <Association Name="grant_contact_history" Member="grant" ThisKey="grant_id" OtherKey="grant_id" Type="grant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.documentation_requirement" Member="documentation_requirements">
+    <Type Name="documentation_requirement">
+      <Column Name="grant_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="documentation_type_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="documentation_type_documentation_requirement" Member="documentation_type" ThisKey="documentation_type_id" OtherKey="documentation_type_id" Type="documentation_type" IsForeignKey="true" />
+      <Association Name="grant_documentation_requirement" Member="grant" ThisKey="grant_id" OtherKey="grant_id" Type="grant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.documentation_type" Member="documentation_types">
+    <Type Name="documentation_type">
+      <Column Name="documentation_type_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="documentation_type_documentation_requirement" Member="documentation_requirements" ThisKey="documentation_type_id" OtherKey="documentation_type_id" Type="documentation_requirement" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[grant]" Member="grants">
+    <Type Name="grant">
+      <Column Name="grant_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="grantor_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="grant_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="grant_description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="submit_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="turnaround_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="payment_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="grant_requested_amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="grant_actual_amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="grantor_username" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="grantor_password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="grantor_website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="submit_to_email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="submit_to_website" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="program_emphasis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="grant_writer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="attachment" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="attachment_name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="grant_contact_history" Member="contact_histories" ThisKey="grant_id" OtherKey="grant_id" Type="contact_history" />
+      <Association Name="grant_documentation_requirement" Member="documentation_requirements" ThisKey="grant_id" OtherKey="grant_id" Type="documentation_requirement" />
+      <Association Name="grant_grant_program" Member="grant_programs" ThisKey="grant_id" OtherKey="grant_id" Type="grant_program" />
+      <Association Name="grant_grant_project" Member="grant_projects" ThisKey="grant_id" OtherKey="grant_id" Type="grant_project" />
+      <Association Name="user_grant" Member="user" ThisKey="grant_writer" OtherKey="username" Type="user" IsForeignKey="true" />
+      <Association Name="grantor_grant" Member="grantor" ThisKey="grantor_id" OtherKey="grantor_id" Type="grantor" IsForeignKey="true" />
+      <Association Name="status_type_grant" Member="status_type" ThisKey="status" OtherKey="status_id" Type="status_type" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.grant_program" Member="grant_programs">
+    <Type Name="grant_program">
+      <Column Name="grant_program_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="grant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="program_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="grant_grant_program" Member="grant" ThisKey="grant_id" OtherKey="grant_id" Type="grant" IsForeignKey="true" />
+      <Association Name="program_grant_program" Member="program" ThisKey="program_id" OtherKey="program_id" Type="program" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.grant_project" Member="grant_projects">
+    <Type Name="grant_project">
+      <Column Name="grant_project_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="grant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="grant_project_amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="grant_grant_project" Member="grant" ThisKey="grant_id" OtherKey="grant_id" Type="grant" IsForeignKey="true" />
+      <Association Name="project_grant_project" Member="project" ThisKey="project_id" OtherKey="project_id" Type="project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.grantor" Member="grantors">
+    <Type Name="grantor">
+      <Column Name="grantor_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="organization_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="contact_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="contact_title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="fax" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="city" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="state_id" Type="System.String" DbType="NChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="zipcode" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="types_of_support" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="average_gift" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="giving_history" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="buzzwords" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="grantor_grant" Member="grants" ThisKey="grantor_id" OtherKey="grantor_id" Type="grant" />
+      <Association Name="state_grantor" Member="state" ThisKey="state_id" OtherKey="state_id" Type="state" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.program" Member="programs">
+    <Type Name="program">
+      <Column Name="program_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="program_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="program_description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="program_grant_program" Member="grant_programs" ThisKey="program_id" OtherKey="program_id" Type="grant_program" />
+    </Type>
+  </Table>
+  <Table Name="dbo.project" Member="projects">
+    <Type Name="project">
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="project_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="project_overview" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="project_need_statement" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="project_objectives" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="project_evaluation_plan" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="organizational_budget" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="project_timeline" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="project_letters_support" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="project_grant_project" Member="grant_projects" ThisKey="project_id" OtherKey="project_id" Type="grant_project" />
+    </Type>
+  </Table>
+  <Table Name="dbo.state" Member="states">
+    <Type Name="state">
+      <Column Name="state_id" Type="System.String" DbType="NChar(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="state_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="state_grantor" Member="grantors" ThisKey="state_id" OtherKey="state_id" Type="grantor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.status_type" Member="status_types">
+    <Type Name="status_type">
+      <Column Name="status_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="status_type_grant" Member="grants" ThisKey="status_id" OtherKey="status" Type="grant" />
+    </Type>
+  </Table>
+</Database>

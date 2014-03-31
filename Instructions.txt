@@ -1,0 +1,24 @@
+Instructions for using Grant Manager with SQL Server Express:
+
+1. Install SQL Server 2008 Express (and Management Studio) from here: http://www.microsoft.com/en-us/download/details.aspx?id=22973
+Versions newer than 2008 will probably work as well.
+You can follow the directions on this page - http://wiki.octopusnetwork.org/pages/viewpage.action?pageId=26837026 - except your password doesn't have to be "octopus" and you don't have to go onto the next page.
+
+2. Once you have SQL Server Management Studio open and connected, create a new database called "grantapp".
+
+3. Run the SQL scripts in Management Studio, in alphabetical order. (Alternatively, you can run the file "Scripts 1-16 combined.sql".)
+The script 16-create db user.sql creates a database user/password. By default, the username is "grantuser" and the password is "pw,1,LVCV". You can change these if you like.
+
+4a. On each computer, copy GrantApp.exe, GrantApp.exe.config, GrantApp.pdb and MonthCalendar.dll to a folder. (You can find them in GrantApp/bin/Release.)
+Database2.mdf and Database2_log.ldf are not needed - they contain an empty database stored locally, and you have a database on your server.
+
+4b. GrantApp.exe.config is a text file. Since you're not using Database2.mdf, change it to look something like this:
+	<?xml version="1.0" encoding="utf-8" ?>
+	<configuration>
+	  <connectionStrings>
+		<add name="GrantApp.Properties.Settings.Database1ConnectionString"
+		  connectionString="Data Source=192.168.1.17;Initial Catalog=grantapp;Persist Security Info=True;User Id=grantuser;Password=asdfghjkl"
+		  providerName="System.Data.SqlClient" />
+	  </connectionStrings>
+	</configuration>
+The important part is the connectionString="..." line. Use the "User Id" and "Password" you made by running 16-create db user.sql, and set "Data Source" to the IP address of the SQL server.

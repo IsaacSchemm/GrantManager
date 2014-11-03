@@ -235,6 +235,8 @@ namespace GrantApp
                     }
                 }
             }
+
+			UpdateAttachmentsList();
         }
 
         /// <summary>
@@ -542,6 +544,16 @@ namespace GrantApp
             else { return this.paymentDatePicker.Value; }
         }
 
+		private void UpdateAttachmentsList() {
+			using (DataClasses1DataContext db = new DataClasses1DataContext()) {
+				attachmentsList.Items.Clear();
+				attachmentsList.DisplayMember = "filename";
+				foreach (var a in db.attachments.Where(a => a.grant_id == currentlyEditingID)) {
+					attachmentsList.Items.Add(a);
+				}
+			}
+		}
+
         //submit button for form
         //currently does nothing, as submitting is handled by "before close" event
         private void grantSubmitButton_Click(object sender, EventArgs e)
@@ -610,6 +622,29 @@ namespace GrantApp
         {
 
         }
+
+		private void addAttachmentButton_Click(object sender, EventArgs e) {
+			if (currentlyEditingID == null) {
+				MessageBox.Show("You must add a grant to the database before uploading attachments.");
+			} else {
+				new AttachmentForm(currentlyEditingID.Value).ShowDialog(this);
+				UpdateAttachmentsList();
+			}
+		}
+
+		private void editAttachmentButton_Click(object sender, EventArgs e) {
+			if (currentlyEditingID == null) {
+				MessageBox.Show("You must add a grant to the database before uploading attachments.");
+			} else {
+				attachment a = attachmentsList.SelectedItem as attachment;
+				if (a == null) {
+					MessageBox.Show("No attachment is selected.");
+				} else {
+					new AttachmentForm(currentlyEditingID.Value, a.attachment_id).ShowDialog(this);
+					UpdateAttachmentsList();
+				}
+			}
+		}
 
     }
 }

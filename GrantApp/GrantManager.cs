@@ -55,7 +55,7 @@ namespace GrantApp
                                 DueDate = g.due_date,
                                 StartDate = g.start_date,
                                 Amount = g.grant_actual_amount,
-                                File = g.attachment != null ? paperclip : blank,
+								File = db.attachments.Any(a => a.grant_id == g.grant_id) ? paperclip : blank,
                             };
                     grantGrid.DataSource = q;
 
@@ -80,7 +80,7 @@ namespace GrantApp
                                 DueDate = g.due_date,
                                 StartDate = g.start_date,
                                 Amount = g.grant_actual_amount,
-                                File = g.attachment != null ? paperclip : blank,
+								File = db.attachments.Any(a => a.grant_id == g.grant_id) ? paperclip : blank,
                             };
                     grantGrid.DataSource = q;
 

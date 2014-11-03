@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="GrantApp.Properties.Settings" SettingsPropertyName="Database1ConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database2.mdf;Integrated Security=True" SettingsObjectName="GrantApp.Properties.Settings" SettingsPropertyName="Database1ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.approach" Member="approaches">
     <Type Name="approach">
       <Column Name="approach_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -12,10 +12,18 @@
       <Column Name="username" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="display_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="display_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="admin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="user_contact_history" Member="contact_histories" ThisKey="username" OtherKey="contacted_by" Type="contact_history" />
       <Association Name="user_grant" Member="grants" ThisKey="username" OtherKey="grant_writer" Type="grant" />
+    </Type>
+  </Table>
+  <Table Name="dbo.attachment" Member="attachments">
+    <Type Name="attachment">
+      <Column Name="attachment_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="grant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="filename" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="data" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
     </Type>
   </Table>
   <Table Name="dbo.changelog" Member="changelogs">
@@ -71,15 +79,13 @@
       <Column Name="grant_requested_amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
       <Column Name="grant_actual_amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="grantor_website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="grantor_username" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="grantor_password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="grantor_website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="submit_to_email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="submit_to_website" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Column Name="program_emphasis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="grant_writer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="attachment" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="attachment_name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="grant_contact_history" Member="contact_histories" ThisKey="grant_id" OtherKey="grant_id" Type="contact_history" />
       <Association Name="grant_documentation_requirement" Member="documentation_requirements" ThisKey="grant_id" OtherKey="grant_id" Type="documentation_requirement" />

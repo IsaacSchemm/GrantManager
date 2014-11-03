@@ -18,21 +18,24 @@ namespace GrantApp
     /// </summary>
     public partial class AttachmentForm : Form
     {
-        private grant grant;
+        private attachment attachment;
+        private int grant_id;
         private DataClasses1DataContext db;
 
         /// <summary>
         /// Opens window.
         /// </summary>
         /// <param name="grant_id">Id of grant that holds focus.</param>
-        public AttachmentForm(int grant_id)
+		/// <param name="attachment_id">Id of attachment to edit (if any.)</param>
+        public AttachmentForm(int grant_id, int? attachment_id = null)
         {
             InitializeComponent();
             this.db = new DataClasses1DataContext();
             this.FormClosed += AttachmentForm_FormClosed;
-            this.grant = (from g in db.grants
-                          where g.grant_id == grant_id
-                          select g).First();
+            this.grant_id = grant_id;
+			this.attachment = attachment_id != null
+				? (from a in db.attachments where a.attachment_id == attachment_id select a).Single()
+				: null;
 
             RefreshLabels();
         }
@@ -44,10 +47,10 @@ namespace GrantApp
         private void RefreshLabels()
         {
             //find name and size
-            this.lblSize.Text = grant.attachment == null ? "none" : String.Format("{0} ({1} bytes)", grant.attachment_name, grant.attachment.Length);
+            this.lblSize.Text = attachment == null ? "" : String.Format("{0} ({1} bytes)", attachment.filename, attachment.data.Length);
 
             //enable download button and delete button only if an attachment is present
-            this.btnDownload.Enabled = this.btnDelete.Enabled = (grant.attachment != null);
+            this.btnDownload.Enabled = this.btnDelete.Enabled = attachment != null;
         }
 
         /// <summary>
@@ -71,7 +74,7 @@ namespace GrantApp
             if (open.ShowDialog() != DialogResult.OK) return;
 
             //confirm that user wants to overwrite attachment if an attachment already existed
-            if (grant.attachment != null)
+            if (attachment != null)
             {
                 if (MessageBox.Show(this, "Are you sure you want to overwrite the current attachment?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
                 {
@@ -79,16 +82,8 @@ namespace GrantApp
                 }
             }
             // get information before it is changed
-            String oldAttachment =  grant.attachment_name;
-            if (grant.attachment == null)
-            {
-                oldAttachment = null;
-            }
+            String oldAttachment = attachment == null ? null : attachment.filename;
             String newGrantorSummary = Path.GetFileName(open.FileName);
-            
-            
-           
-            
 
             //add to database
             byte[] data;
@@ -101,15 +96,19 @@ namespace GrantApp
                 MessageBox.Show("File is currently in use, please save it, close the file, and try again");
                 return;
             }
-            grant.attachment = new Binary(data);
-            grant.attachment_name = Path.GetFileName(open.FileName);
+            if (attachment == null) {
+                attachment = new attachment();
+                attachment.grant_id = this.grant_id;
+                db.attachments.InsertOnSubmit(attachment);
+            }
+            attachment.data = new Binary(data);
+            attachment.filename = Path.GetFileName(open.FileName);
 
             if (Settings.EnableChangelog)
             {
-
                 changelog log = new changelog()
                 {
-                    object_edited = grant.grant_name,
+                    object_edited = attachment.filename,
                     username = Login.currentUser,
                     date = DateTime.Now,
                 };
@@ -140,10 +139,10 @@ namespace GrantApp
         {
             //open save file dialog
             SaveFileDialog save = new SaveFileDialog();
-            save.FileName = grant.attachment_name;
+            save.FileName = attachment.filename;
             if (save.ShowDialog() != DialogResult.OK) return;
 
-            byte[] data = grant.attachment.ToArray();
+            byte[] data = attachment.data.ToArray();
             File.WriteAllBytes(save.FileName, data);
 
             //show confirmation text
@@ -156,12 +155,12 @@ namespace GrantApp
         /// </summary>
         private void btnViewCopy_Click(object sender, EventArgs e)
         {
-            if (grant.attachment != null)
+            if (attachment.data != null)
             {
-                byte[] data = grant.attachment.ToArray();
+                byte[] data = attachment.data.ToArray();
                 string tempFile = Path.GetTempPath();
-                File.WriteAllBytes(tempFile + grant.attachment_name, data);
-                Process p = Process.Start(tempFile + grant.attachment_name);
+                File.WriteAllBytes(tempFile + attachment.filename, data);
+                Process p = Process.Start(tempFile + attachment.filename);
             }
             else
             {
@@ -178,12 +177,12 @@ namespace GrantApp
             if (MessageBox.Show(this, "Are you sure you want to delete this attachment from the database?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 
-                String oldAttachment = grant.attachment_name;
+                String oldAttachment = attachment.filename;
                 if (Settings.EnableChangelog)
                 {
                     changelog log = new changelog()
                     {
-                        object_edited = grant.grant_name,
+                        object_edited = attachment.filename,
                         username = Login.currentUser,
                         date = DateTime.Now,
                     };
@@ -193,8 +192,10 @@ namespace GrantApp
                 db.SubmitChanges();
 
                 //delete from database
-                grant.attachment = null;
+                db.attachments.DeleteOnSubmit(attachment);
                 db.SubmitChanges();
+
+                attachment = null;
 
                 //show confirmation text
                 lblFeedback.Text = "Attachment deleted";

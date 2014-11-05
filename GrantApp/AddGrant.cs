@@ -138,8 +138,10 @@ namespace GrantApp
             }
 
             //only fill in other values if editing an old grant
-            if (currentlyEditingID != null)
+            if (currentlyEditingID == null)
             {
+				addAttachmentButton.Enabled = false;
+			} else {
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
                     grant currentlyEditing = (from g in db.grants
@@ -552,6 +554,7 @@ namespace GrantApp
 					attachmentsList.Items.Add(a);
 				}
 			}
+			editAttachmentButton.Enabled = (attachmentsList.SelectedIndex > -1);
 		}
 
         //submit button for form
@@ -618,11 +621,6 @@ namespace GrantApp
             }
         }
 
-        private void addGrantorButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
 		private void addAttachmentButton_Click(object sender, EventArgs e) {
 			if (currentlyEditingID == null) {
 				MessageBox.Show("You must add a grant to the database before uploading attachments.");
@@ -644,6 +642,10 @@ namespace GrantApp
 					UpdateAttachmentsList();
 				}
 			}
+		}
+
+		private void attachmentsList_SelectedIndexChanged(object sender, EventArgs e) {
+			editAttachmentButton.Enabled = (attachmentsList.SelectedIndex > -1);
 		}
 
     }

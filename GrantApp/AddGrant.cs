@@ -57,14 +57,6 @@ namespace GrantApp
                 projectsList.DisplayMember = "project_name";
                 projectsList.ValueMember = "project_id";
 
-                var q2 = from p in db.projects
-                         select p;
-
-                foreach (project p in q2)
-                {
-                    projectsList.Items.Add(p);
-                }
-
                 //doc type list
                 documentationList.DisplayMember = "name";
                 documentationList.ValueMember = "documentation_type_id";
@@ -80,7 +72,6 @@ namespace GrantApp
 
             addGrantorButton.Click += new EventHandler(AddGrantorFromGrant);
             addProgramButton.Click += new EventHandler(AddProgramFromGrant);
-            addProjectButton.Click += new EventHandler(AddProjectFromGrant);
 
             //validation for adding grants
             //grant must have a name and requested amount, and request/actual amounts must both be numbers
@@ -134,14 +125,14 @@ namespace GrantApp
                 //first item in list box is selected by default
                 this.programsList.ClearSelected();
                 this.projectsList.ClearSelected();
-                this.documentationList.ClearSelected();
+				this.documentationList.ClearSelected();
+
+				addAttachmentButton.Enabled = false;
             }
 
             //only fill in other values if editing an old grant
-            if (currentlyEditingID == null)
+            if (currentlyEditingID != null)
             {
-				addAttachmentButton.Enabled = false;
-			} else {
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
                     grant currentlyEditing = (from g in db.grants
@@ -208,16 +199,8 @@ namespace GrantApp
                                     where gp.grant_id == currentlyEditingID
                                     select p);
 
-                    this.projectsList.ClearSelected();
-
-                    //select projects in list box that are connected to this grant
-                    for (int i = 0; i < projectsList.Items.Count; i++)
-                    {
-                        if (projects.Contains(projectsList.Items[i]))
-                        {
-                            projectsList.SetSelected(i, true);
-                        }
-                    }
+                    this.projectsList.Items.Clear();
+					this.projectsList.Items.AddRange(projects.ToArray());
 
                     //read documentation types list from linking table
                     var doctypes = (from dr in db.documentation_requirements
@@ -416,8 +399,8 @@ namespace GrantApp
                     db.documentation_requirements.InsertOnSubmit(dr);
                 }
 
-                //add entry in grant-project linking table for every project selected
-                foreach (project p in this.projectsList.SelectedItems)
+                //add entry in grant-project linking table for every project in the list
+                foreach (project p in this.projectsList.Items)
                 {
                     grant_project gp = new grant_project
                     {
@@ -485,7 +468,7 @@ namespace GrantApp
             new AddProgram(programsList).ShowDialog(this);
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Opens AddProject window.
         /// Allows adding a new project to database while editing a grant.
         /// </summary>
@@ -506,7 +489,7 @@ namespace GrantApp
                     projectsList.Items.Add(p);
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// Opens AddDocumentation window.
@@ -646,6 +629,26 @@ namespace GrantApp
 
 		private void attachmentsList_SelectedIndexChanged(object sender, EventArgs e) {
 			editAttachmentButton.Enabled = (attachmentsList.SelectedIndex > -1);
+		}
+
+		private void addProjectButton_Click(object sender, EventArgs e) {
+			int? id = ProjectManager.SelectProject();
+			if (id != null) {
+				foreach (project item in projectsList.Items) {
+					if (item.project_id == id) return; // already in list
+				}
+				using (DataClasses1DataContext db = new DataClasses1DataContext()) {
+					projectsList.Items.Add(db.projects.Where(p => p.project_id == id).Single());
+				}
+			}
+		}
+
+		private void deleteProjectButton_Click(object sender, EventArgs e) {
+			projectsList.Items.Remove(projectsList.SelectedItem);
+		}
+
+		private void projectsList_SelectedIndexChanged(object sender, EventArgs e) {
+			deleteProjectButton.Enabled = (projectsList.SelectedIndex > -1);
 		}
 
     }

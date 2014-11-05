@@ -15,6 +15,9 @@ namespace GrantApp
     /// </summary>
     public partial class ProjectManager : Form
     {
+		private bool UseAsSelectProjectWindow = false;
+		private int? SelectedProjectIDOnClose = null;
+
         /// <summary>
         /// Initializes window.
         /// </summary>
@@ -29,7 +32,23 @@ namespace GrantApp
             refreshButton.Click += new EventHandler(Refresh_Project);
             searchProject.Click += new EventHandler(Search_Project);
             searchBox.KeyDown += new KeyEventHandler(search_Enter);
+
+			projectGrid.DoubleClick += (o, e) => {
+				if (UseAsSelectProjectWindow) {
+					var rows = projectGrid.SelectedRows;
+					if (rows.Count > 0) SelectedProjectIDOnClose = (int)rows[0].Cells["ID"].Value;
+					this.Close();
+				}
+			};
         }
+
+		public static int? SelectProject() {
+			using (ProjectManager form = new ProjectManager()) {
+				form.UseAsSelectProjectWindow = true;
+				form.ShowDialog();
+				return form.SelectedProjectIDOnClose;
+			}
+		}
 
         /// <summary>
         /// Reloads list of projects to reflect updated database.
@@ -202,6 +221,5 @@ namespace GrantApp
                 Search_Project(sender, e);
             }
         }
-
     }
 }

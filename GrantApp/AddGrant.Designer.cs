@@ -65,7 +65,6 @@ namespace GrantApp
 			this.addProgramButton = new System.Windows.Forms.Button();
 			this.label16 = new System.Windows.Forms.Label();
 			this.projectsList = new System.Windows.Forms.ListBox();
-			this.addProjectButton = new System.Windows.Forms.Button();
 			this.documentationList = new System.Windows.Forms.ListBox();
 			this.docButton = new System.Windows.Forms.Button();
 			this.label17 = new System.Windows.Forms.Label();
@@ -83,6 +82,8 @@ namespace GrantApp
 			this.statusDropdown = new GrantApp.BetterComboBox();
 			this.grantWriterDropdown = new GrantApp.BetterComboBox();
 			this.grantorDropdown = new GrantApp.BetterComboBox();
+			this.addProjectButton = new System.Windows.Forms.Button();
+			this.deleteProjectButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// lblGrantor
@@ -418,16 +419,7 @@ namespace GrantApp
 			this.projectsList.Size = new System.Drawing.Size(229, 121);
 			this.projectsList.Sorted = true;
 			this.projectsList.TabIndex = 22;
-			// 
-			// addProjectButton
-			// 
-			this.addProjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.addProjectButton.Location = new System.Drawing.Point(461, 153);
-			this.addProjectButton.Name = "addProjectButton";
-			this.addProjectButton.Size = new System.Drawing.Size(118, 23);
-			this.addProjectButton.TabIndex = 23;
-			this.addProjectButton.Text = "Add New Project";
-			this.addProjectButton.UseVisualStyleBackColor = true;
+			this.projectsList.SelectedIndexChanged += new System.EventHandler(this.projectsList_SelectedIndexChanged);
 			// 
 			// documentationList
 			// 
@@ -666,6 +658,29 @@ namespace GrantApp
 			this.grantorDropdown.Size = new System.Drawing.Size(241, 21);
 			this.grantorDropdown.TabIndex = 3;
 			// 
+			// addProjectButton
+			// 
+			this.addProjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.addProjectButton.Location = new System.Drawing.Point(531, 153);
+			this.addProjectButton.Name = "addProjectButton";
+			this.addProjectButton.Size = new System.Drawing.Size(48, 23);
+			this.addProjectButton.TabIndex = 63;
+			this.addProjectButton.Text = "Add";
+			this.addProjectButton.UseVisualStyleBackColor = true;
+			this.addProjectButton.Click += new System.EventHandler(this.addProjectButton_Click);
+			// 
+			// deleteProjectButton
+			// 
+			this.deleteProjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.deleteProjectButton.Enabled = false;
+			this.deleteProjectButton.Location = new System.Drawing.Point(477, 153);
+			this.deleteProjectButton.Name = "deleteProjectButton";
+			this.deleteProjectButton.Size = new System.Drawing.Size(48, 23);
+			this.deleteProjectButton.TabIndex = 64;
+			this.deleteProjectButton.Text = "Delete";
+			this.deleteProjectButton.UseVisualStyleBackColor = true;
+			this.deleteProjectButton.Click += new System.EventHandler(this.deleteProjectButton_Click);
+			// 
 			// AddGrant
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -673,6 +688,8 @@ namespace GrantApp
 			this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(834, 617);
+			this.Controls.Add(this.deleteProjectButton);
+			this.Controls.Add(this.addProjectButton);
 			this.Controls.Add(this.editAttachmentButton);
 			this.Controls.Add(this.addAttachmentButton);
 			this.Controls.Add(this.attachmentsList);
@@ -688,7 +705,6 @@ namespace GrantApp
 			this.Controls.Add(this.cbSubmit);
 			this.Controls.Add(this.label17);
 			this.Controls.Add(this.documentationList);
-			this.Controls.Add(this.addProjectButton);
 			this.Controls.Add(this.projectsList);
 			this.Controls.Add(this.label16);
 			this.Controls.Add(this.label11);
@@ -778,8 +794,7 @@ namespace GrantApp
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button addProgramButton;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ListBox projectsList;
-        private System.Windows.Forms.Button addProjectButton;
+		private System.Windows.Forms.ListBox projectsList;
         private System.Windows.Forms.ListBox documentationList;
         private System.Windows.Forms.Button docButton;
         private System.Windows.Forms.Label label17;
@@ -794,5 +809,7 @@ namespace GrantApp
 		private System.Windows.Forms.ListBox attachmentsList;
 		private System.Windows.Forms.Button addAttachmentButton;
 		private System.Windows.Forms.Button editAttachmentButton;
+		private System.Windows.Forms.Button addProjectButton;
+		private System.Windows.Forms.Button deleteProjectButton;
     }
 }

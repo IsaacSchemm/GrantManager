@@ -138,6 +138,20 @@ namespace GrantApp
 
                 notesLabel.Text = currentGrant.notes;
 
+				var attachments = from a in db.attachments
+								  where a.grant_id == currentGrant.grant_id
+								  select new { a.attachment_id, a.filename, a.grant_id };
+				foreach (var a in attachments) {
+					LinkLabel l = new LinkLabel();
+					l.Text = a.filename;
+					l.AutoSize = true;
+					l.Click += (o, e) => {
+						using (var form = new AttachmentForm(a.grant_id, a.attachment_id)) {
+							form.ShowDialog(this);
+						}
+					};
+					flowLayoutPanel1.Controls.Add(l);
+				}
             }
         }
 

@@ -68,6 +68,8 @@ namespace GrantApp
 			this.notesLabel = new System.Windows.Forms.TextBox();
 			this.websiteLabel = new System.Windows.Forms.Label();
 			this.label20 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
+			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.SuspendLayout();
 			// 
 			// nameLabel
@@ -78,14 +80,15 @@ namespace GrantApp
 			this.nameLabel.Name = "nameLabel";
 			this.nameLabel.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
 			this.nameLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.nameLabel.Size = new System.Drawing.Size(549, 562);
+			this.nameLabel.Size = new System.Drawing.Size(687, 501);
 			this.nameLabel.TabIndex = 2;
 			this.nameLabel.Text = "Grant Name";
 			this.nameLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// backButton
 			// 
-			this.backButton.Location = new System.Drawing.Point(12, 12);
+			this.backButton.Location = new System.Drawing.Point(17, 17);
+			this.backButton.Margin = new System.Windows.Forms.Padding(8);
 			this.backButton.Name = "backButton";
 			this.backButton.Size = new System.Drawing.Size(75, 23);
 			this.backButton.TabIndex = 3;
@@ -95,7 +98,8 @@ namespace GrantApp
 			// descLabel
 			// 
 			this.descLabel.AutoSize = true;
-			this.descLabel.Location = new System.Drawing.Point(119, 94);
+			this.descLabel.Location = new System.Drawing.Point(118, 94);
+			this.descLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.descLabel.Name = "descLabel";
 			this.descLabel.Size = new System.Drawing.Size(89, 13);
 			this.descLabel.TabIndex = 4;
@@ -105,7 +109,8 @@ namespace GrantApp
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 123);
+			this.label1.Location = new System.Drawing.Point(17, 123);
+			this.label1.Margin = new System.Windows.Forms.Padding(8);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(48, 13);
 			this.label1.TabIndex = 5;
@@ -114,7 +119,8 @@ namespace GrantApp
 			// grantorLabel
 			// 
 			this.grantorLabel.AutoSize = true;
-			this.grantorLabel.Location = new System.Drawing.Point(119, 123);
+			this.grantorLabel.Location = new System.Drawing.Point(118, 123);
+			this.grantorLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.grantorLabel.Name = "grantorLabel";
 			this.grantorLabel.Size = new System.Drawing.Size(71, 13);
 			this.grantorLabel.TabIndex = 6;
@@ -123,7 +129,8 @@ namespace GrantApp
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(12, 94);
+			this.label2.Location = new System.Drawing.Point(17, 94);
+			this.label2.Margin = new System.Windows.Forms.Padding(8);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(63, 13);
 			this.label2.TabIndex = 7;
@@ -132,7 +139,8 @@ namespace GrantApp
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(12, 155);
+			this.label3.Location = new System.Drawing.Point(535, 94);
+			this.label3.Margin = new System.Windows.Forms.Padding(8);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(68, 13);
 			this.label3.TabIndex = 8;
@@ -140,8 +148,11 @@ namespace GrantApp
 			// 
 			// submitLabel
 			// 
+			this.submitLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.submitLabel.AutoSize = true;
-			this.submitLabel.Location = new System.Drawing.Point(119, 155);
+			this.submitLabel.Location = new System.Drawing.Point(637, 94);
+			this.submitLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.submitLabel.Name = "submitLabel";
 			this.submitLabel.Size = new System.Drawing.Size(33, 13);
 			this.submitLabel.TabIndex = 9;
@@ -149,8 +160,11 @@ namespace GrantApp
 			// 
 			// startLabel
 			// 
+			this.startLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.startLabel.AutoSize = true;
-			this.startLabel.Location = new System.Drawing.Point(119, 259);
+			this.startLabel.Location = new System.Drawing.Point(637, 181);
+			this.startLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.startLabel.Name = "startLabel";
 			this.startLabel.Size = new System.Drawing.Size(33, 13);
 			this.startLabel.TabIndex = 11;
@@ -159,7 +173,8 @@ namespace GrantApp
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(12, 259);
+			this.label5.Location = new System.Drawing.Point(535, 181);
+			this.label5.Margin = new System.Windows.Forms.Padding(8);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(58, 13);
 			this.label5.TabIndex = 10;
@@ -167,8 +182,11 @@ namespace GrantApp
 			// 
 			// paymentLabel
 			// 
+			this.paymentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.paymentLabel.AutoSize = true;
-			this.paymentLabel.Location = new System.Drawing.Point(119, 296);
+			this.paymentLabel.Location = new System.Drawing.Point(637, 210);
+			this.paymentLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.paymentLabel.Name = "paymentLabel";
 			this.paymentLabel.Size = new System.Drawing.Size(33, 13);
 			this.paymentLabel.TabIndex = 13;
@@ -177,7 +195,8 @@ namespace GrantApp
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(12, 296);
+			this.label7.Location = new System.Drawing.Point(535, 210);
+			this.label7.Margin = new System.Windows.Forms.Padding(8);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(77, 13);
 			this.label7.TabIndex = 12;
@@ -185,8 +204,11 @@ namespace GrantApp
 			// 
 			// turnaroundLabel
 			// 
+			this.turnaroundLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.turnaroundLabel.AutoSize = true;
-			this.turnaroundLabel.Location = new System.Drawing.Point(119, 223);
+			this.turnaroundLabel.Location = new System.Drawing.Point(637, 152);
+			this.turnaroundLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.turnaroundLabel.Name = "turnaroundLabel";
 			this.turnaroundLabel.Size = new System.Drawing.Size(33, 13);
 			this.turnaroundLabel.TabIndex = 15;
@@ -195,7 +217,8 @@ namespace GrantApp
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(12, 223);
+			this.label9.Location = new System.Drawing.Point(535, 152);
+			this.label9.Margin = new System.Windows.Forms.Padding(8);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(91, 13);
 			this.label9.TabIndex = 14;
@@ -203,8 +226,11 @@ namespace GrantApp
 			// 
 			// duedateLabel
 			// 
+			this.duedateLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.duedateLabel.AutoSize = true;
-			this.duedateLabel.Location = new System.Drawing.Point(119, 188);
+			this.duedateLabel.Location = new System.Drawing.Point(637, 123);
+			this.duedateLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.duedateLabel.Name = "duedateLabel";
 			this.duedateLabel.Size = new System.Drawing.Size(33, 13);
 			this.duedateLabel.TabIndex = 17;
@@ -213,7 +239,8 @@ namespace GrantApp
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(12, 188);
+			this.label11.Location = new System.Drawing.Point(535, 123);
+			this.label11.Margin = new System.Windows.Forms.Padding(8);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(56, 13);
 			this.label11.TabIndex = 16;
@@ -222,7 +249,8 @@ namespace GrantApp
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(12, 372);
+			this.label4.Location = new System.Drawing.Point(318, 123);
+			this.label4.Margin = new System.Windows.Forms.Padding(8);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(79, 13);
 			this.label4.TabIndex = 19;
@@ -231,7 +259,8 @@ namespace GrantApp
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(12, 335);
+			this.label6.Location = new System.Drawing.Point(318, 94);
+			this.label6.Margin = new System.Windows.Forms.Padding(8);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(101, 13);
 			this.label6.TabIndex = 18;
@@ -240,7 +269,8 @@ namespace GrantApp
 			// actualLabel
 			// 
 			this.actualLabel.AutoSize = true;
-			this.actualLabel.Location = new System.Drawing.Point(119, 372);
+			this.actualLabel.Location = new System.Drawing.Point(420, 123);
+			this.actualLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.actualLabel.Name = "actualLabel";
 			this.actualLabel.Size = new System.Drawing.Size(66, 13);
 			this.actualLabel.TabIndex = 21;
@@ -249,7 +279,8 @@ namespace GrantApp
 			// requestedLabel
 			// 
 			this.requestedLabel.AutoSize = true;
-			this.requestedLabel.Location = new System.Drawing.Point(119, 335);
+			this.requestedLabel.Location = new System.Drawing.Point(420, 94);
+			this.requestedLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.requestedLabel.Name = "requestedLabel";
 			this.requestedLabel.Size = new System.Drawing.Size(88, 13);
 			this.requestedLabel.TabIndex = 20;
@@ -258,7 +289,8 @@ namespace GrantApp
 			// statusLabel
 			// 
 			this.statusLabel.AutoSize = true;
-			this.statusLabel.Location = new System.Drawing.Point(119, 409);
+			this.statusLabel.Location = new System.Drawing.Point(420, 152);
+			this.statusLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.statusLabel.Name = "statusLabel";
 			this.statusLabel.Size = new System.Drawing.Size(37, 13);
 			this.statusLabel.TabIndex = 23;
@@ -267,7 +299,8 @@ namespace GrantApp
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(12, 409);
+			this.label10.Location = new System.Drawing.Point(318, 152);
+			this.label10.Margin = new System.Windows.Forms.Padding(8);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(40, 13);
 			this.label10.TabIndex = 22;
@@ -276,7 +309,8 @@ namespace GrantApp
 			// passwordLabel
 			// 
 			this.passwordLabel.AutoSize = true;
-			this.passwordLabel.Location = new System.Drawing.Point(365, 155);
+			this.passwordLabel.Location = new System.Drawing.Point(420, 239);
+			this.passwordLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.passwordLabel.Name = "passwordLabel";
 			this.passwordLabel.Size = new System.Drawing.Size(82, 13);
 			this.passwordLabel.TabIndex = 27;
@@ -285,7 +319,8 @@ namespace GrantApp
 			// usernameLabel
 			// 
 			this.usernameLabel.AutoSize = true;
-			this.usernameLabel.Location = new System.Drawing.Point(365, 123);
+			this.usernameLabel.Location = new System.Drawing.Point(420, 210);
+			this.usernameLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.usernameLabel.Name = "usernameLabel";
 			this.usernameLabel.Size = new System.Drawing.Size(84, 13);
 			this.usernameLabel.TabIndex = 26;
@@ -294,7 +329,8 @@ namespace GrantApp
 			// label13
 			// 
 			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(258, 155);
+			this.label13.Location = new System.Drawing.Point(318, 239);
+			this.label13.Margin = new System.Windows.Forms.Padding(8);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(98, 13);
 			this.label13.TabIndex = 25;
@@ -303,7 +339,8 @@ namespace GrantApp
 			// label14
 			// 
 			this.label14.AutoSize = true;
-			this.label14.Location = new System.Drawing.Point(258, 123);
+			this.label14.Location = new System.Drawing.Point(318, 210);
+			this.label14.Margin = new System.Windows.Forms.Padding(8);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(100, 13);
 			this.label14.TabIndex = 24;
@@ -312,7 +349,8 @@ namespace GrantApp
 			// writerLabel
 			// 
 			this.writerLabel.AutoSize = true;
-			this.writerLabel.Location = new System.Drawing.Point(365, 188);
+			this.writerLabel.Location = new System.Drawing.Point(420, 268);
+			this.writerLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.writerLabel.Name = "writerLabel";
 			this.writerLabel.Size = new System.Drawing.Size(64, 13);
 			this.writerLabel.TabIndex = 29;
@@ -321,7 +359,8 @@ namespace GrantApp
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(258, 188);
+			this.label12.Location = new System.Drawing.Point(318, 268);
+			this.label12.Margin = new System.Windows.Forms.Padding(8);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(67, 13);
 			this.label12.TabIndex = 28;
@@ -330,7 +369,8 @@ namespace GrantApp
 			// label15
 			// 
 			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(258, 223);
+			this.label15.Location = new System.Drawing.Point(16, 283);
+			this.label15.Margin = new System.Windows.Forms.Padding(8);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(54, 13);
 			this.label15.TabIndex = 30;
@@ -338,27 +378,27 @@ namespace GrantApp
 			// 
 			// programLabel
 			// 
-			this.programLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.programLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.programLabel.Location = new System.Drawing.Point(368, 223);
+			this.programLabel.Location = new System.Drawing.Point(121, 283);
+			this.programLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.programLabel.Multiline = true;
 			this.programLabel.Name = "programLabel";
 			this.programLabel.ReadOnly = true;
-			this.programLabel.Size = new System.Drawing.Size(169, 51);
+			this.programLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.programLabel.Size = new System.Drawing.Size(180, 51);
 			this.programLabel.TabIndex = 31;
 			this.programLabel.Text = "Programs Label";
 			// 
 			// projectLabel
 			// 
-			this.projectLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.projectLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.projectLabel.Location = new System.Drawing.Point(368, 335);
+			this.projectLabel.Location = new System.Drawing.Point(121, 152);
+			this.projectLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.projectLabel.Multiline = true;
 			this.projectLabel.Name = "projectLabel";
 			this.projectLabel.ReadOnly = true;
-			this.projectLabel.Size = new System.Drawing.Size(169, 51);
+			this.projectLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.projectLabel.Size = new System.Drawing.Size(180, 64);
 			this.projectLabel.TabIndex = 32;
 			this.projectLabel.Text = "Projects Label";
 			// 
@@ -367,18 +407,21 @@ namespace GrantApp
 			this.documentationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.documentationLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.documentationLabel.Location = new System.Drawing.Point(368, 409);
+			this.documentationLabel.Location = new System.Drawing.Point(423, 297);
+			this.documentationLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.documentationLabel.Multiline = true;
 			this.documentationLabel.Name = "documentationLabel";
 			this.documentationLabel.ReadOnly = true;
-			this.documentationLabel.Size = new System.Drawing.Size(169, 77);
+			this.documentationLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.documentationLabel.Size = new System.Drawing.Size(247, 64);
 			this.documentationLabel.TabIndex = 33;
 			this.documentationLabel.Text = "Documentation Label";
 			// 
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(258, 297);
+			this.label8.Location = new System.Drawing.Point(16, 232);
+			this.label8.Margin = new System.Windows.Forms.Padding(8);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(97, 13);
 			this.label8.TabIndex = 34;
@@ -387,7 +430,8 @@ namespace GrantApp
 			// emphasisLabel
 			// 
 			this.emphasisLabel.AutoSize = true;
-			this.emphasisLabel.Location = new System.Drawing.Point(365, 297);
+			this.emphasisLabel.Location = new System.Drawing.Point(118, 232);
+			this.emphasisLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.emphasisLabel.Name = "emphasisLabel";
 			this.emphasisLabel.Size = new System.Drawing.Size(81, 13);
 			this.emphasisLabel.TabIndex = 35;
@@ -396,7 +440,8 @@ namespace GrantApp
 			// label16
 			// 
 			this.label16.AutoSize = true;
-			this.label16.Location = new System.Drawing.Point(258, 334);
+			this.label16.Location = new System.Drawing.Point(17, 152);
+			this.label16.Margin = new System.Windows.Forms.Padding(8);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(48, 13);
 			this.label16.TabIndex = 36;
@@ -405,7 +450,8 @@ namespace GrantApp
 			// label17
 			// 
 			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(258, 410);
+			this.label17.Location = new System.Drawing.Point(318, 297);
+			this.label17.Margin = new System.Windows.Forms.Padding(8);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(62, 13);
 			this.label17.TabIndex = 37;
@@ -414,7 +460,8 @@ namespace GrantApp
 			// label18
 			// 
 			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(12, 492);
+			this.label18.Location = new System.Drawing.Point(318, 377);
+			this.label18.Margin = new System.Windows.Forms.Padding(8);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(38, 13);
 			this.label18.TabIndex = 38;
@@ -426,18 +473,21 @@ namespace GrantApp
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.notesLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.notesLabel.Location = new System.Drawing.Point(122, 492);
+			this.notesLabel.Location = new System.Drawing.Point(423, 377);
+			this.notesLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.notesLabel.Multiline = true;
 			this.notesLabel.Name = "notesLabel";
 			this.notesLabel.ReadOnly = true;
-			this.notesLabel.Size = new System.Drawing.Size(415, 57);
+			this.notesLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.notesLabel.Size = new System.Drawing.Size(247, 107);
 			this.notesLabel.TabIndex = 39;
 			this.notesLabel.Text = "Notes Label";
 			// 
 			// websiteLabel
 			// 
 			this.websiteLabel.AutoSize = true;
-			this.websiteLabel.Location = new System.Drawing.Point(365, 94);
+			this.websiteLabel.Location = new System.Drawing.Point(420, 181);
+			this.websiteLabel.Margin = new System.Windows.Forms.Padding(8);
 			this.websiteLabel.Name = "websiteLabel";
 			this.websiteLabel.Size = new System.Drawing.Size(75, 13);
 			this.websiteLabel.TabIndex = 41;
@@ -446,17 +496,41 @@ namespace GrantApp
 			// label20
 			// 
 			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(258, 94);
+			this.label20.Location = new System.Drawing.Point(318, 181);
+			this.label20.Margin = new System.Windows.Forms.Padding(8);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(49, 13);
 			this.label20.TabIndex = 40;
 			this.label20.Text = "Website:";
 			// 
+			// label19
+			// 
+			this.label19.AutoSize = true;
+			this.label19.Location = new System.Drawing.Point(14, 368);
+			this.label19.Margin = new System.Windows.Forms.Padding(8);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(66, 13);
+			this.label19.TabIndex = 42;
+			this.label19.Text = "Attachments";
+			// 
+			// flowLayoutPanel1
+			// 
+			this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(121, 368);
+			this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(8);
+			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(180, 116);
+			this.flowLayoutPanel1.TabIndex = 43;
+			// 
 			// GrantDetails
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(549, 562);
+			this.ClientSize = new System.Drawing.Size(687, 501);
+			this.Controls.Add(this.flowLayoutPanel1);
+			this.Controls.Add(this.label19);
 			this.Controls.Add(this.websiteLabel);
 			this.Controls.Add(this.label20);
 			this.Controls.Add(this.notesLabel);
@@ -547,5 +621,7 @@ namespace GrantApp
         private System.Windows.Forms.TextBox notesLabel;
         private System.Windows.Forms.Label websiteLabel;
         private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.Label label19;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

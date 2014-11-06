@@ -56,8 +56,8 @@ namespace GrantApp
                 if (currentGrant.payment_date != null) paymentLabel.Text = currentGrant.payment_date.Value.Date.ToShortDateString();
                 
                 //dollar signs in front of money values
-                requestedLabel.Text = "$" + currentGrant.grant_requested_amount;
-                actualLabel.Text = "$" + currentGrant.grant_actual_amount;
+                requestedLabel.Text = "$" + currentGrant.grant_requested_amount.ToString("0.00");
+				actualLabel.Text = currentGrant.grant_actual_amount == null ? "" : ("$" + currentGrant.grant_actual_amount.Value.ToString("0.00"));
 
                 //get status name
                 status_type status = (from s in db.status_types

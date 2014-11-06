@@ -164,8 +164,8 @@ namespace GrantApp
                         this.cbPayment.Checked = true; 
                         this.paymentDatePicker.Value = (DateTime)currentlyEditing.payment_date;
                         this.paymentDatePicker.Enabled = true; }
-                    this.requestedAmountText.Text = currentlyEditing.grant_requested_amount.ToString();
-                    this.actualAmountText.Text = currentlyEditing.grant_actual_amount.ToString();
+					this.requestedAmountText.Text = currentlyEditing.grant_requested_amount.ToString("0.00");
+                    this.actualAmountText.Text = currentlyEditing.grant_actual_amount == null ? "" : currentlyEditing.grant_actual_amount.Value.ToString("0.00");
                     this.statusDropdown.SelectedValue = currentlyEditing.status;
                     this.grantorWebsiteText.Text = currentlyEditing.grantor_website;
                     this.grantorUsernameText.Text = currentlyEditing.grantor_username;

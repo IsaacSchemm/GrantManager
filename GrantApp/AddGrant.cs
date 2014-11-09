@@ -45,14 +45,6 @@ namespace GrantApp
                 programsList.DisplayMember = "program_name";
                 programsList.ValueMember = "program_id";
 
-                var q1 = from p in db.programs
-                         select p;
-
-                foreach (program p in q1)
-                {
-                    programsList.Items.Add(p);
-                }
-
                 //projects list
                 projectsList.DisplayMember = "project_name";
                 projectsList.ValueMember = "project_id";
@@ -60,46 +52,38 @@ namespace GrantApp
                 //doc type list
                 documentationList.DisplayMember = "name";
                 documentationList.ValueMember = "documentation_type_id";
-
-                var q3 = from d in db.documentation_types
-                         select d;
-
-                foreach (documentation_type d in q3)
-                {
-                    documentationList.Items.Add(d);
-                }
             }
 
             addGrantorButton.Click += new EventHandler(AddGrantorFromGrant);
-            addProgramButton.Click += new EventHandler(AddProgramFromGrant);
+            //addProgramButton.Click += new EventHandler(AddProgramFromGrant);
 
             //validation for adding grants
             //grant must have a name and requested amount, and request/actual amounts must both be numbers
-			this.FormClosing += BeforeClose;
+            this.FormClosing += BeforeClose;
 
-			#region validation
-			grantNameText.Validating += (o, e) => {
-				if (grantNameText.Text.Length == 0) {
-					e.Cancel = true;
-					MessageBox.Show(this, "You must enter a name for the grant.");
-				}
-			};
-			requestedAmountText.Validating += (o, e) => {
-				decimal tmp;
-				if (!decimal.TryParse(requestedAmountText.Text, out tmp)) {
-					e.Cancel = true;
-					MessageBox.Show(this, "You must enter a valid number for Requested Amount.");
-				}
-			};
-			actualAmountText.Validating += (o, e) => {
-				decimal tmp;
-				if (actualAmountText.TextLength > 0 && !decimal.TryParse(actualAmountText.Text, out tmp)) {
-					e.Cancel = true;
-					MessageBox.Show(this, "You must enter a valid number for Actual Amount, or leave the field empty.");
-				}
-			};
-			#endregion
-		}
+            #region validation
+            grantNameText.Validating += (o, e) => {
+                if (grantNameText.Text.Length == 0) {
+                    e.Cancel = true;
+                    MessageBox.Show(this, "You must enter a name for the grant.");
+                }
+            };
+            requestedAmountText.Validating += (o, e) => {
+                decimal tmp;
+                if (!decimal.TryParse(requestedAmountText.Text, out tmp)) {
+                    e.Cancel = true;
+                    MessageBox.Show(this, "You must enter a valid number for Requested Amount.");
+                }
+            };
+            actualAmountText.Validating += (o, e) => {
+                decimal tmp;
+                if (actualAmountText.TextLength > 0 && !decimal.TryParse(actualAmountText.Text, out tmp)) {
+                    e.Cancel = true;
+                    MessageBox.Show(this, "You must enter a valid number for Actual Amount, or leave the field empty.");
+                }
+            };
+            #endregion
+        }
 
         /// <summary>
         /// Initializes window when editing an old grant.
@@ -125,9 +109,9 @@ namespace GrantApp
                 //first item in list box is selected by default
                 this.programsList.ClearSelected();
                 this.projectsList.ClearSelected();
-				this.documentationList.ClearSelected();
+                this.documentationList.ClearSelected();
 
-				addAttachmentButton.Enabled = false;
+                addAttachmentButton.Enabled = false;
             }
 
             //only fill in other values if editing an old grant
@@ -164,7 +148,7 @@ namespace GrantApp
                         this.cbPayment.Checked = true; 
                         this.paymentDatePicker.Value = (DateTime)currentlyEditing.payment_date;
                         this.paymentDatePicker.Enabled = true; }
-					this.requestedAmountText.Text = currentlyEditing.grant_requested_amount.ToString("0.00");
+                    this.requestedAmountText.Text = currentlyEditing.grant_requested_amount.ToString("0.00");
                     this.actualAmountText.Text = currentlyEditing.grant_actual_amount == null ? "" : currentlyEditing.grant_actual_amount.Value.ToString("0.00");
                     this.statusDropdown.SelectedValue = currentlyEditing.status;
                     this.grantorWebsiteText.Text = currentlyEditing.grantor_website;
@@ -182,16 +166,8 @@ namespace GrantApp
                                     where gp.grant_id == currentlyEditingID
                                     select p);
 
-                    this.programsList.ClearSelected();
-
-                    //select programs in list box that are connected to this grant
-                    for (int i = 0; i < programsList.Items.Count; i++)
-                    {
-                        if (programs.Contains(programsList.Items[i]))
-                        {
-                            programsList.SetSelected(i, true);
-                        }
-                    }
+                    //add programs to list box that are connected to this grant
+                    programsList.Items.AddRange(programs.ToArray());
 
                     //read projects list from linking table
                     var projects = (from gp in db.grant_projects
@@ -200,7 +176,7 @@ namespace GrantApp
                                     select p);
 
                     this.projectsList.Items.Clear();
-					this.projectsList.Items.AddRange(projects.ToArray());
+                    this.projectsList.Items.AddRange(projects.ToArray());
 
                     //read documentation types list from linking table
                     var doctypes = (from dr in db.documentation_requirements
@@ -208,20 +184,12 @@ namespace GrantApp
                                     where dr.grant_id == currentlyEditingID
                                     select d);
 
-                    this.documentationList.ClearSelected();
-
-                    //select doc types in list box taht are connected to this grant
-                    for (int i = 0; i < documentationList.Items.Count; i++)
-                    {
-                        if (doctypes.Contains(documentationList.Items[i]))
-                        {
-                            documentationList.SetSelected(i, true);
-                        }
-                    }
+                    //add doc types to list box that are connected to this grant
+                    documentationList.Items.AddRange(doctypes.ToArray());
                 }
             }
 
-			UpdateAttachmentsList();
+            UpdateAttachmentsList();
         }
 
         /// <summary>
@@ -231,14 +199,14 @@ namespace GrantApp
         private void BeforeClose(object sender, FormClosingEventArgs e)
         {
             //if not closing window because OK was clicked, don't update database
-			if (DialogResult != DialogResult.OK) {
-				return;
-			}
+            if (DialogResult != DialogResult.OK) {
+                return;
+            }
             //likewise don't update database if validation doesn't pass
             else if (!ValidateChildren()) {
-				e.Cancel = true;
-				return;
-			}
+                e.Cancel = true;
+                return;
+            }
 
             // error checking for money inputs - parse to decimal number
             decimal requested;
@@ -248,12 +216,12 @@ namespace GrantApp
             }
 
             decimal? actual;
-			decimal tmp;
-			if (Decimal.TryParse(this.actualAmountText.Text, out tmp)) {
-				actual = tmp;
-			} else {
-				actual = null;
-			}
+            decimal tmp;
+            if (Decimal.TryParse(this.actualAmountText.Text, out tmp)) {
+                actual = tmp;
+            } else {
+                actual = null;
+            }
 
             int grant_id_added_or_edited;
 
@@ -375,8 +343,8 @@ namespace GrantApp
                     grant_id_added_or_edited = g.grant_id;
                 }
 
-                //add entry in grant-program linking table for every program selected
-                foreach (program p in this.programsList.SelectedItems)
+                //add entry in grant-program linking table for every program in the list
+                foreach (program p in this.programsList.Items)
                 {
                     grant_program gp = new grant_program
                     {
@@ -387,8 +355,8 @@ namespace GrantApp
                     db.grant_programs.InsertOnSubmit(gp);
                 }
 
-                //add entry in grant-documentation linking table for every doc type selected
-                foreach (documentation_type d in this.documentationList.SelectedItems)
+                //add entry in grant-documentation linking table for every doc type in the list
+                foreach (documentation_type d in this.documentationList.Items)
                 {
                     documentation_requirement dr = new documentation_requirement
                     {
@@ -417,28 +385,28 @@ namespace GrantApp
 
             //write to change log
             // This needs to be in a new DataContext because the linking tables have been updated.
-			if (Settings.EnableChangelog) {
-				using (DataClasses1DataContext db = new DataClasses1DataContext()) {
-					string newGrantSummary = (from g in db.grants
-											  where g.grant_id == grant_id_added_or_edited
-											  select g).First().ToString();
-					changelog log = new changelog() {
-						object_edited = "grant " + this.grantNameText.Text,
-						username = Login.currentUser,
-						date = DateTime.Now,
-					};
+            if (Settings.EnableChangelog) {
+                using (DataClasses1DataContext db = new DataClasses1DataContext()) {
+                    string newGrantSummary = (from g in db.grants
+                                              where g.grant_id == grant_id_added_or_edited
+                                              select g).First().ToString();
+                    changelog log = new changelog() {
+                        object_edited = "grant " + this.grantNameText.Text,
+                        username = Login.currentUser,
+                        date = DateTime.Now,
+                    };
                     //write old and new summaries if editing, otherwise just write new summary
-					if (oldGrantSummary != null) {
-						log.details = oldGrantSummary + " => " + newGrantSummary;
-					} else {
-						log.details = "Added: " + newGrantSummary;
-					}
-					db.changelogs.InsertOnSubmit(log);
+                    if (oldGrantSummary != null) {
+                        log.details = oldGrantSummary + " => " + newGrantSummary;
+                    } else {
+                        log.details = "Added: " + newGrantSummary;
+                    }
+                    db.changelogs.InsertOnSubmit(log);
 
                     //update database
-					db.SubmitChanges();
-				}
-			}
+                    db.SubmitChanges();
+                }
+            }
         }
 
         /// <summary>
@@ -529,16 +497,16 @@ namespace GrantApp
             else { return this.paymentDatePicker.Value; }
         }
 
-		private void UpdateAttachmentsList() {
-			using (DataClasses1DataContext db = new DataClasses1DataContext()) {
-				attachmentsList.Items.Clear();
-				attachmentsList.DisplayMember = "filename";
-				foreach (var a in db.attachments.Where(a => a.grant_id == currentlyEditingID)) {
-					attachmentsList.Items.Add(a);
-				}
-			}
-			editAttachmentButton.Enabled = (attachmentsList.SelectedIndex > -1);
-		}
+        private void UpdateAttachmentsList() {
+            using (DataClasses1DataContext db = new DataClasses1DataContext()) {
+                attachmentsList.Items.Clear();
+                attachmentsList.DisplayMember = "filename";
+                foreach (var a in db.attachments.Where(a => a.grant_id == currentlyEditingID)) {
+                    attachmentsList.Items.Add(a);
+                }
+            }
+            editAttachmentButton.Enabled = (attachmentsList.SelectedIndex > -1);
+        }
 
         //submit button for form
         //currently does nothing, as submitting is handled by "before close" event
@@ -604,52 +572,86 @@ namespace GrantApp
             }
         }
 
-		private void addAttachmentButton_Click(object sender, EventArgs e) {
-			if (currentlyEditingID == null) {
-				MessageBox.Show("You must add a grant to the database before uploading attachments.");
-			} else {
-				new AttachmentForm(currentlyEditingID.Value).ShowDialog(this);
-				UpdateAttachmentsList();
-			}
-		}
+        private void addAttachmentButton_Click(object sender, EventArgs e) {
+            if (currentlyEditingID == null) {
+                MessageBox.Show("You must add a grant to the database before uploading attachments.");
+            } else {
+                new AttachmentForm(currentlyEditingID.Value).ShowDialog(this);
+                UpdateAttachmentsList();
+            }
+        }
 
-		private void editAttachmentButton_Click(object sender, EventArgs e) {
-			if (currentlyEditingID == null) {
-				MessageBox.Show("You must add a grant to the database before uploading attachments.");
-			} else {
-				attachment a = attachmentsList.SelectedItem as attachment;
-				if (a == null) {
-					MessageBox.Show("No attachment is selected.");
-				} else {
-					new AttachmentForm(currentlyEditingID.Value, a.attachment_id).ShowDialog(this);
-					UpdateAttachmentsList();
-				}
-			}
-		}
+        private void editAttachmentButton_Click(object sender, EventArgs e) {
+            if (currentlyEditingID == null) {
+                MessageBox.Show("You must add a grant to the database before uploading attachments.");
+            } else {
+                attachment a = attachmentsList.SelectedItem as attachment;
+                if (a == null) {
+                    MessageBox.Show("No attachment is selected.");
+                } else {
+                    new AttachmentForm(currentlyEditingID.Value, a.attachment_id).ShowDialog(this);
+                    UpdateAttachmentsList();
+                }
+            }
+        }
 
-		private void attachmentsList_SelectedIndexChanged(object sender, EventArgs e) {
-			editAttachmentButton.Enabled = (attachmentsList.SelectedIndex > -1);
-		}
+        private void attachmentsList_SelectedIndexChanged(object sender, EventArgs e) {
+            editAttachmentButton.Enabled = (attachmentsList.SelectedIndex > -1);
+        }
 
-		private void addProjectButton_Click(object sender, EventArgs e) {
-			int? id = ProjectManager.SelectProject();
-			if (id != null) {
-				foreach (project item in projectsList.Items) {
-					if (item.project_id == id) return; // already in list
-				}
-				using (DataClasses1DataContext db = new DataClasses1DataContext()) {
-					projectsList.Items.Add(db.projects.Where(p => p.project_id == id).Single());
-				}
-			}
-		}
+        private void addProjectButton_Click(object sender, EventArgs e) {
+            project p = SelectItemToAddDialog.SelectProject();
+            if (p != null) {
+                foreach (project item in projectsList.Items) {
+                    if (item.project_id == p.project_id) return; // already in list
+                }
+                projectsList.Items.Add(p);
+            }
+        }
 
-		private void deleteProjectButton_Click(object sender, EventArgs e) {
-			projectsList.Items.Remove(projectsList.SelectedItem);
-		}
+        private void deleteProjectButton_Click(object sender, EventArgs e) {
+            projectsList.Items.Remove(projectsList.SelectedItem);
+        }
 
-		private void projectsList_SelectedIndexChanged(object sender, EventArgs e) {
-			deleteProjectButton.Enabled = (projectsList.SelectedIndex > -1);
-		}
+        private void projectsList_SelectedIndexChanged(object sender, EventArgs e) {
+            deleteProjectButton.Enabled = (projectsList.SelectedIndex > -1);
+        }
+
+        private void addProgramButton_Click(object sender, EventArgs e) {
+            program p = SelectItemToAddDialog.SelectProgram();
+            if (p != null) {
+                foreach (program item in programsList.Items) {
+                    if (item.program_id == p.program_id) return; // already in list
+                }
+                programsList.Items.Add(p);
+            }
+        }
+
+        private void deleteProgramButton_Click(object sender, EventArgs e) {
+            programsList.Items.Remove(programsList.SelectedItem);
+        }
+
+        private void programsList_SelectedIndexChanged(object sender, EventArgs e) {
+            deleteProgramButton.Enabled = (programsList.SelectedIndex > -1);
+        }
+
+        private void addDocTypeButton_Click(object sender, EventArgs e) {
+            documentation_type d = SelectItemToAddDialog.SelectDocumentationType();
+            if (d != null) {
+                foreach (documentation_type item in documentationList.Items) {
+                    if (item.documentation_type_id == d.documentation_type_id) return; // already in list
+                }
+                documentationList.Items.Add(d);
+            }
+        }
+
+        private void deleteDocTypeButton_Click(object sender, EventArgs e) {
+            documentationList.Items.Remove(documentationList.SelectedItem);
+        }
+
+        private void documentationList_SelectedIndexChanged(object sender, EventArgs e) {
+            deleteDocTypeButton.Enabled = (documentationList.SelectedIndex > -1);
+        }
 
     }
 }

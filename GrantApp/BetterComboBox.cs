@@ -4,6 +4,7 @@ using System.Windows.Forms;
 namespace GrantApp {
 	//as noted here: https://connect.microsoft.com/VisualStudio/feedback/details/523272/combobox-does-not-display-selectedvalue-to-user-in-windows-7
 	//Windows 7 has issues with ComboBoxStyle.DropDownList mixed with AutoCompleteMode.Append or AutoCompleteMode.SuggestAppend
+    //(without an AutoCompleteMode, pressing M and then I will go to Idaho instead of Michigan)
 	//this class seeks to address those problems
 	public class BetterComboBox : ComboBox {
 		private int _windows7CorrectedSelectedIndex = -1;

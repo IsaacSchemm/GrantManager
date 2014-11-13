@@ -73,7 +73,7 @@ namespace GrantApp
         }
         
         /// <summary>
-        /// Clears entries in change log that are over a month old.
+        /// Clears entries in change log that are over 30 days old.
         /// Called on start up when main page is loading.
         /// </summary>
         private void cleanseChangelog()
@@ -169,6 +169,18 @@ namespace GrantApp
 						if (!alerts.ContainsKey(d)) alerts.Add(d, new List<Alert>());
 						alerts[d].Add(new Alert("Due date for " + g.grant_name, g.grant_id));
 					}
+				}
+
+				foreach (var td in db.timeline_dates) {
+					var d = td.date.Date;
+					list[d] = new DateItem() {
+						Date = d,
+						BackColor1 = Color.FromName(td.color ?? "Cyan")
+					};
+
+					//add alert to list
+					if (!alerts.ContainsKey(d)) alerts.Add(d, new List<Alert>());
+					alerts[d].Add(new Alert(td.name, td.grant_id));
 				}
 			}
 			monthCalendar2.AddDateInfo(list.Values.ToArray());

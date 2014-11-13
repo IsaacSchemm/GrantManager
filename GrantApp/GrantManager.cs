@@ -226,25 +226,6 @@ namespace GrantApp
 		}
 
         /// <summary>
-        /// Opens window to add attachment to grant.
-        /// </summary>
-        private void btnAttachment_Click(object sender, EventArgs e)
-        {
-            //find id
-            int id = 0;
-            foreach (DataGridViewRow row in grantGrid.SelectedRows)
-            {
-                id = (int)row.Cells["ID"].Value;
-            }
-
-            //open window
-            new AttachmentForm(id).ShowDialog(this);
-
-            //refresh list after interaction
-            RefreshGrants();
-        }
-
-        /// <summary>
         /// Filters the displayed grants based on the search text.
         /// </summary>
         private void btnSearch_Click(object sender, EventArgs e)
@@ -302,6 +283,10 @@ namespace GrantApp
             //open window
             new GrantDetails(id).ShowDialog(this);
         }
+
+		private void btnTimeline_Click(object sender, EventArgs e) {
+
+		}
 
     }
 }

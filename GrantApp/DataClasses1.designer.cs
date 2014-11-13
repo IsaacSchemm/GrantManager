@@ -30,12 +30,12 @@ namespace GrantApp
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void Insertapproach(approach instance);
-    partial void Updateapproach(approach instance);
-    partial void Deleteapproach(approach instance);
     partial void Insertuser(user instance);
     partial void Updateuser(user instance);
     partial void Deleteuser(user instance);
+    partial void Insertapproach(approach instance);
+    partial void Updateapproach(approach instance);
+    partial void Deleteapproach(approach instance);
     partial void Insertattachment(attachment instance);
     partial void Updateattachment(attachment instance);
     partial void Deleteattachment(attachment instance);
@@ -75,6 +75,9 @@ namespace GrantApp
     partial void Insertstatus_type(status_type instance);
     partial void Updatestatus_type(status_type instance);
     partial void Deletestatus_type(status_type instance);
+    partial void Inserttimeline_date(timeline_date instance);
+    partial void Updatetimeline_date(timeline_date instance);
+    partial void Deletetimeline_date(timeline_date instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -107,19 +110,19 @@ namespace GrantApp
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<approach> approaches
-		{
-			get
-			{
-				return this.GetTable<approach>();
-			}
-		}
-		
 		public System.Data.Linq.Table<user> users
 		{
 			get
 			{
 				return this.GetTable<user>();
+			}
+		}
+		
+		public System.Data.Linq.Table<approach> approaches
+		{
+			get
+			{
+				return this.GetTable<approach>();
 			}
 		}
 		
@@ -226,119 +229,13 @@ namespace GrantApp
 				return this.GetTable<status_type>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.approach")]
-	public partial class approach : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _approach_id;
-		
-		private string _approach_type;
-		
-		private EntitySet<contact_history> _contact_histories;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onapproach_idChanging(int value);
-    partial void Onapproach_idChanged();
-    partial void Onapproach_typeChanging(string value);
-    partial void Onapproach_typeChanged();
-    #endregion
-		
-		public approach()
-		{
-			this._contact_histories = new EntitySet<contact_history>(new Action<contact_history>(this.attach_contact_histories), new Action<contact_history>(this.detach_contact_histories));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approach_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int approach_id
+		public System.Data.Linq.Table<timeline_date> timeline_dates
 		{
 			get
 			{
-				return this._approach_id;
+				return this.GetTable<timeline_date>();
 			}
-			set
-			{
-				if ((this._approach_id != value))
-				{
-					this.Onapproach_idChanging(value);
-					this.SendPropertyChanging();
-					this._approach_id = value;
-					this.SendPropertyChanged("approach_id");
-					this.Onapproach_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approach_type", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string approach_type
-		{
-			get
-			{
-				return this._approach_type;
-			}
-			set
-			{
-				if ((this._approach_type != value))
-				{
-					this.Onapproach_typeChanging(value);
-					this.SendPropertyChanging();
-					this._approach_type = value;
-					this.SendPropertyChanged("approach_type");
-					this.Onapproach_typeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="approach_contact_history", Storage="_contact_histories", ThisKey="approach_id", OtherKey="initial_approach_id")]
-		public EntitySet<contact_history> contact_histories
-		{
-			get
-			{
-				return this._contact_histories;
-			}
-			set
-			{
-				this._contact_histories.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_contact_histories(contact_history entity)
-		{
-			this.SendPropertyChanging();
-			entity.approach = this;
-		}
-		
-		private void detach_contact_histories(contact_history entity)
-		{
-			this.SendPropertyChanging();
-			entity.approach = null;
 		}
 	}
 	
@@ -556,6 +453,120 @@ namespace GrantApp
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.approach")]
+	public partial class approach : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _approach_id;
+		
+		private string _approach_type;
+		
+		private EntitySet<contact_history> _contact_histories;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onapproach_idChanging(int value);
+    partial void Onapproach_idChanged();
+    partial void Onapproach_typeChanging(string value);
+    partial void Onapproach_typeChanged();
+    #endregion
+		
+		public approach()
+		{
+			this._contact_histories = new EntitySet<contact_history>(new Action<contact_history>(this.attach_contact_histories), new Action<contact_history>(this.detach_contact_histories));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approach_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int approach_id
+		{
+			get
+			{
+				return this._approach_id;
+			}
+			set
+			{
+				if ((this._approach_id != value))
+				{
+					this.Onapproach_idChanging(value);
+					this.SendPropertyChanging();
+					this._approach_id = value;
+					this.SendPropertyChanged("approach_id");
+					this.Onapproach_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approach_type", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string approach_type
+		{
+			get
+			{
+				return this._approach_type;
+			}
+			set
+			{
+				if ((this._approach_type != value))
+				{
+					this.Onapproach_typeChanging(value);
+					this.SendPropertyChanging();
+					this._approach_type = value;
+					this.SendPropertyChanged("approach_type");
+					this.Onapproach_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="approach_contact_history", Storage="_contact_histories", ThisKey="approach_id", OtherKey="initial_approach_id")]
+		public EntitySet<contact_history> contact_histories
+		{
+			get
+			{
+				return this._contact_histories;
+			}
+			set
+			{
+				this._contact_histories.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_contact_histories(contact_history entity)
+		{
+			this.SendPropertyChanging();
+			entity.approach = this;
+		}
+		
+		private void detach_contact_histories(contact_history entity)
+		{
+			this.SendPropertyChanging();
+			entity.approach = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.attachment")]
 	public partial class attachment : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -569,6 +580,8 @@ namespace GrantApp
 		private string _filename;
 		
 		private System.Data.Linq.Binary _data;
+		
+		private EntityRef<grant> _grant;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -586,6 +599,7 @@ namespace GrantApp
 		
 		public attachment()
 		{
+			this._grant = default(EntityRef<grant>);
 			OnCreated();
 		}
 		
@@ -620,6 +634,10 @@ namespace GrantApp
 			{
 				if ((this._grant_id != value))
 				{
+					if (this._grant.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Ongrant_idChanging(value);
 					this.SendPropertyChanging();
 					this._grant_id = value;
@@ -665,6 +683,40 @@ namespace GrantApp
 					this._data = value;
 					this.SendPropertyChanged("data");
 					this.OndataChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="grant_attachment", Storage="_grant", ThisKey="grant_id", OtherKey="grant_id", IsForeignKey=true)]
+		public grant grant
+		{
+			get
+			{
+				return this._grant.Entity;
+			}
+			set
+			{
+				grant previousValue = this._grant.Entity;
+				if (((previousValue != value) 
+							|| (this._grant.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._grant.Entity = null;
+						previousValue.attachments.Remove(this);
+					}
+					this._grant.Entity = value;
+					if ((value != null))
+					{
+						value.attachments.Add(this);
+						this._grant_id = value.grant_id;
+					}
+					else
+					{
+						this._grant_id = default(int);
+					}
+					this.SendPropertyChanged("grant");
 				}
 			}
 		}
@@ -1529,6 +1581,8 @@ namespace GrantApp
 		
 		private string _notes;
 		
+		private EntitySet<attachment> _attachments;
+		
 		private EntitySet<contact_history> _contact_histories;
 		
 		private EntitySet<documentation_requirement> _documentation_requirements;
@@ -1536,6 +1590,8 @@ namespace GrantApp
 		private EntitySet<grant_program> _grant_programs;
 		
 		private EntitySet<grant_project> _grant_projects;
+		
+		private EntitySet<timeline_date> _timeline_dates;
 		
 		private EntityRef<user> _user;
 		
@@ -1591,10 +1647,12 @@ namespace GrantApp
 		
 		public grant()
 		{
+			this._attachments = new EntitySet<attachment>(new Action<attachment>(this.attach_attachments), new Action<attachment>(this.detach_attachments));
 			this._contact_histories = new EntitySet<contact_history>(new Action<contact_history>(this.attach_contact_histories), new Action<contact_history>(this.detach_contact_histories));
 			this._documentation_requirements = new EntitySet<documentation_requirement>(new Action<documentation_requirement>(this.attach_documentation_requirements), new Action<documentation_requirement>(this.detach_documentation_requirements));
 			this._grant_programs = new EntitySet<grant_program>(new Action<grant_program>(this.attach_grant_programs), new Action<grant_program>(this.detach_grant_programs));
 			this._grant_projects = new EntitySet<grant_project>(new Action<grant_project>(this.attach_grant_projects), new Action<grant_project>(this.detach_grant_projects));
+			this._timeline_dates = new EntitySet<timeline_date>(new Action<timeline_date>(this.attach_timeline_dates), new Action<timeline_date>(this.detach_timeline_dates));
 			this._user = default(EntityRef<user>);
 			this._grantor = default(EntityRef<grantor>);
 			this._status_type = default(EntityRef<status_type>);
@@ -2013,6 +2071,19 @@ namespace GrantApp
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="grant_attachment", Storage="_attachments", ThisKey="grant_id", OtherKey="grant_id")]
+		public EntitySet<attachment> attachments
+		{
+			get
+			{
+				return this._attachments;
+			}
+			set
+			{
+				this._attachments.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="grant_contact_history", Storage="_contact_histories", ThisKey="grant_id", OtherKey="grant_id")]
 		public EntitySet<contact_history> contact_histories
 		{
@@ -2062,6 +2133,19 @@ namespace GrantApp
 			set
 			{
 				this._grant_projects.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="grant_timeline_date", Storage="_timeline_dates", ThisKey="grant_id", OtherKey="grant_id")]
+		public EntitySet<timeline_date> timeline_dates
+		{
+			get
+			{
+				return this._timeline_dates;
+			}
+			set
+			{
+				this._timeline_dates.Assign(value);
 			}
 		}
 		
@@ -2187,6 +2271,18 @@ namespace GrantApp
 			}
 		}
 		
+		private void attach_attachments(attachment entity)
+		{
+			this.SendPropertyChanging();
+			entity.grant = this;
+		}
+		
+		private void detach_attachments(attachment entity)
+		{
+			this.SendPropertyChanging();
+			entity.grant = null;
+		}
+		
 		private void attach_contact_histories(contact_history entity)
 		{
 			this.SendPropertyChanging();
@@ -2230,6 +2326,18 @@ namespace GrantApp
 		}
 		
 		private void detach_grant_projects(grant_project entity)
+		{
+			this.SendPropertyChanging();
+			entity.grant = null;
+		}
+		
+		private void attach_timeline_dates(timeline_date entity)
+		{
+			this.SendPropertyChanging();
+			entity.grant = this;
+		}
+		
+		private void detach_timeline_dates(timeline_date entity)
 		{
 			this.SendPropertyChanging();
 			entity.grant = null;
@@ -3804,6 +3912,205 @@ namespace GrantApp
 		{
 			this.SendPropertyChanging();
 			entity.status_type = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.timeline_date")]
+	public partial class timeline_date : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _timeline_date_id;
+		
+		private int _grant_id;
+		
+		private string _name;
+		
+		private System.DateTime _date;
+		
+		private string _color;
+		
+		private EntityRef<grant> _grant;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Ontimeline_date_idChanging(int value);
+    partial void Ontimeline_date_idChanged();
+    partial void Ongrant_idChanging(int value);
+    partial void Ongrant_idChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OndateChanging(System.DateTime value);
+    partial void OndateChanged();
+    partial void OncolorChanging(string value);
+    partial void OncolorChanged();
+    #endregion
+		
+		public timeline_date()
+		{
+			this._grant = default(EntityRef<grant>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeline_date_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int timeline_date_id
+		{
+			get
+			{
+				return this._timeline_date_id;
+			}
+			set
+			{
+				if ((this._timeline_date_id != value))
+				{
+					this.Ontimeline_date_idChanging(value);
+					this.SendPropertyChanging();
+					this._timeline_date_id = value;
+					this.SendPropertyChanged("timeline_date_id");
+					this.Ontimeline_date_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_grant_id", DbType="Int NOT NULL")]
+		public int grant_id
+		{
+			get
+			{
+				return this._grant_id;
+			}
+			set
+			{
+				if ((this._grant_id != value))
+				{
+					if (this._grant.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Ongrant_idChanging(value);
+					this.SendPropertyChanging();
+					this._grant_id = value;
+					this.SendPropertyChanged("grant_id");
+					this.Ongrant_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="Date NOT NULL")]
+		public System.DateTime date
+		{
+			get
+			{
+				return this._date;
+			}
+			set
+			{
+				if ((this._date != value))
+				{
+					this.OndateChanging(value);
+					this.SendPropertyChanging();
+					this._date = value;
+					this.SendPropertyChanged("date");
+					this.OndateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_color", DbType="VarChar(MAX)")]
+		public string color
+		{
+			get
+			{
+				return this._color;
+			}
+			set
+			{
+				if ((this._color != value))
+				{
+					this.OncolorChanging(value);
+					this.SendPropertyChanging();
+					this._color = value;
+					this.SendPropertyChanged("color");
+					this.OncolorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="grant_timeline_date", Storage="_grant", ThisKey="grant_id", OtherKey="grant_id", IsForeignKey=true)]
+		public grant grant
+		{
+			get
+			{
+				return this._grant.Entity;
+			}
+			set
+			{
+				grant previousValue = this._grant.Entity;
+				if (((previousValue != value) 
+							|| (this._grant.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._grant.Entity = null;
+						previousValue.timeline_dates.Remove(this);
+					}
+					this._grant.Entity = value;
+					if ((value != null))
+					{
+						value.timeline_dates.Add(this);
+						this._grant_id = value.grant_id;
+					}
+					else
+					{
+						this._grant_id = default(int);
+					}
+					this.SendPropertyChanged("grant");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

@@ -13,3 +13,13 @@ FROM [grant]
 WHERE attachment IS NOT NULL
 
 ALTER TABLE [grant] DROP COLUMN attachment_name, attachment
+
+CREATE TABLE [dbo].[timeline_date]
+(
+	[timeline_date_id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [grant_id] INT NOT NULL, 
+    [name] VARCHAR(MAX) NOT NULL, 
+    [date] DATE NOT NULL, 
+    [color] VARCHAR(MAX) NULL, 
+    CONSTRAINT [FK_timeline_date_grant] FOREIGN KEY (grant_id) REFERENCES [grant](grant_id)
+)

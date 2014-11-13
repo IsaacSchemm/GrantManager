@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database2.mdf;Integrated Security=True" SettingsObjectName="GrantApp.Properties.Settings" SettingsPropertyName="Database1ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.approach" Member="approaches">
-    <Type Name="approach">
-      <Column Name="approach_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="approach_type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="approach_contact_history" Member="contact_histories" ThisKey="approach_id" OtherKey="initial_approach_id" Type="contact_history" />
-    </Type>
-  </Table>
   <Table Name="dbo.[user]" Member="users">
     <Type Name="user">
       <Column Name="username" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -18,12 +11,20 @@
       <Association Name="user_grant" Member="grants" ThisKey="username" OtherKey="grant_writer" Type="grant" />
     </Type>
   </Table>
+  <Table Name="dbo.approach" Member="approaches">
+    <Type Name="approach">
+      <Column Name="approach_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="approach_type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="approach_contact_history" Member="contact_histories" ThisKey="approach_id" OtherKey="initial_approach_id" Type="contact_history" />
+    </Type>
+  </Table>
   <Table Name="dbo.attachment" Member="attachments">
     <Type Name="attachment">
       <Column Name="attachment_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="grant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="filename" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="data" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="grant_attachment" Member="grant" ThisKey="grant_id" OtherKey="grant_id" Type="grant" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.changelog" Member="changelogs">
@@ -87,10 +88,12 @@
       <Column Name="program_emphasis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="grant_writer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="grant_attachment" Member="attachments" ThisKey="grant_id" OtherKey="grant_id" Type="attachment" />
       <Association Name="grant_contact_history" Member="contact_histories" ThisKey="grant_id" OtherKey="grant_id" Type="contact_history" />
       <Association Name="grant_documentation_requirement" Member="documentation_requirements" ThisKey="grant_id" OtherKey="grant_id" Type="documentation_requirement" />
       <Association Name="grant_grant_program" Member="grant_programs" ThisKey="grant_id" OtherKey="grant_id" Type="grant_program" />
       <Association Name="grant_grant_project" Member="grant_projects" ThisKey="grant_id" OtherKey="grant_id" Type="grant_project" />
+      <Association Name="grant_timeline_date" Member="timeline_dates" ThisKey="grant_id" OtherKey="grant_id" Type="timeline_date" />
       <Association Name="user_grant" Member="user" ThisKey="grant_writer" OtherKey="username" Type="user" IsForeignKey="true" />
       <Association Name="grantor_grant" Member="grantor" ThisKey="grantor_id" OtherKey="grantor_id" Type="grantor" IsForeignKey="true" />
       <Association Name="status_type_grant" Member="status_type" ThisKey="status" OtherKey="status_id" Type="status_type" IsForeignKey="true" />
@@ -172,6 +175,16 @@
       <Column Name="status_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="description" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Association Name="status_type_grant" Member="grants" ThisKey="status_id" OtherKey="status" Type="grant" />
+    </Type>
+  </Table>
+  <Table Name="dbo.timeline_date" Member="timeline_dates">
+    <Type Name="timeline_date">
+      <Column Name="timeline_date_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="grant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="color" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="grant_timeline_date" Member="grant" ThisKey="grant_id" OtherKey="grant_id" Type="grant" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

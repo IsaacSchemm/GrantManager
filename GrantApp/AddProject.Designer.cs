@@ -150,6 +150,7 @@
             // 
             // overviewText
             // 
+            this.overviewText.AcceptsReturn = true;
             this.overviewText.Location = new System.Drawing.Point(117, 60);
             this.overviewText.Multiline = true;
             this.overviewText.Name = "overviewText";
@@ -159,6 +160,7 @@
             // 
             // needStatementText
             // 
+            this.needStatementText.AcceptsReturn = true;
             this.needStatementText.Location = new System.Drawing.Point(117, 147);
             this.needStatementText.Multiline = true;
             this.needStatementText.Name = "needStatementText";
@@ -168,6 +170,7 @@
             // 
             // objectivesText
             // 
+            this.objectivesText.AcceptsReturn = true;
             this.objectivesText.Location = new System.Drawing.Point(117, 228);
             this.objectivesText.Multiline = true;
             this.objectivesText.Name = "objectivesText";
@@ -177,6 +180,7 @@
             // 
             // evalPlanText
             // 
+            this.evalPlanText.AcceptsReturn = true;
             this.evalPlanText.Location = new System.Drawing.Point(117, 309);
             this.evalPlanText.Multiline = true;
             this.evalPlanText.Name = "evalPlanText";
@@ -186,6 +190,7 @@
             // 
             // budgetText
             // 
+            this.budgetText.AcceptsReturn = true;
             this.budgetText.Location = new System.Drawing.Point(427, 25);
             this.budgetText.Multiline = true;
             this.budgetText.Name = "budgetText";
@@ -195,6 +200,7 @@
             // 
             // timelineText
             // 
+            this.timelineText.AcceptsReturn = true;
             this.timelineText.Location = new System.Drawing.Point(427, 111);
             this.timelineText.Multiline = true;
             this.timelineText.Name = "timelineText";
@@ -204,6 +210,7 @@
             // 
             // notesText
             // 
+            this.notesText.AcceptsReturn = true;
             this.notesText.Location = new System.Drawing.Point(427, 282);
             this.notesText.Multiline = true;
             this.notesText.Name = "notesText";
@@ -213,6 +220,7 @@
             // 
             // lettersText
             // 
+            this.lettersText.AcceptsReturn = true;
             this.lettersText.Location = new System.Drawing.Point(427, 198);
             this.lettersText.Multiline = true;
             this.lettersText.Name = "lettersText";
@@ -235,8 +243,10 @@
             // 
             // AddProject
             // 
+            this.AcceptButton = this.submitButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(632, 396);
             this.Controls.Add(this.projectLabel);
             this.Controls.Add(this.lettersText);

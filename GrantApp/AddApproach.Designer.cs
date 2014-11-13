@@ -38,7 +38,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(204, 54);
+            this.btnCancel.Location = new System.Drawing.Point(197, 54);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
@@ -48,7 +48,7 @@
             // btnSubmit
             // 
             this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSubmit.Location = new System.Drawing.Point(123, 54);
+            this.btnSubmit.Location = new System.Drawing.Point(116, 54);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnSubmit.TabIndex = 6;
@@ -75,8 +75,10 @@
             // 
             // AddApproach
             // 
+            this.AcceptButton = this.btnSubmit;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(284, 89);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSubmit);

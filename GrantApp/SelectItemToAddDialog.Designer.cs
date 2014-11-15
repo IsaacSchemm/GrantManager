@@ -27,6 +27,7 @@
 			this.listBox1 = new System.Windows.Forms.ListBox();
 			this.btnOkay = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.btnClear = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// txtSearch
@@ -35,7 +36,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtSearch.Location = new System.Drawing.Point(12, 12);
 			this.txtSearch.Name = "txtSearch";
-			this.txtSearch.Size = new System.Drawing.Size(260, 20);
+			this.txtSearch.Size = new System.Drawing.Size(234, 20);
 			this.txtSearch.TabIndex = 0;
 			this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
 			// 
@@ -73,11 +74,22 @@
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			// 
+			// btnClear
+			// 
+			this.btnClear.Location = new System.Drawing.Point(252, 12);
+			this.btnClear.Name = "btnClear";
+			this.btnClear.Size = new System.Drawing.Size(20, 20);
+			this.btnClear.TabIndex = 39;
+			this.btnClear.Text = "X";
+			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+			// 
 			// SelectItemToAddDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 261);
+			this.Controls.Add(this.btnClear);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnOkay);
 			this.Controls.Add(this.listBox1);
@@ -95,5 +107,6 @@
 		private System.Windows.Forms.ListBox listBox1;
 		private System.Windows.Forms.Button btnOkay;
 		private System.Windows.Forms.Button btnCancel;
+		private System.Windows.Forms.Button btnClear;
 	}
 }

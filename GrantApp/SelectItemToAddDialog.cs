@@ -103,5 +103,9 @@ namespace GrantApp {
 									 where w.Name.ToLowerInvariant().Contains(txtSearch.Text.ToLowerInvariant())
 									 select w).ToArray());
 		}
+
+		private void btnClear_Click(object sender, EventArgs e) {
+			txtSearch.Text = "";
+		}
 	}
 }

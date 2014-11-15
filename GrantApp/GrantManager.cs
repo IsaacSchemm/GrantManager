@@ -244,6 +244,14 @@ namespace GrantApp
             }
         }
 
+		/// <summary>
+		/// Clears the search box and restores the original non-filtered view.
+		/// </summary>
+		private void btnClear_Click(object sender, EventArgs e) {
+			searchBox.Text = "";
+			btnSearch_Click(sender, e);
+		}
+
         /// <summary>
         /// Opens the window that allows editing contact history.
         /// </summary>

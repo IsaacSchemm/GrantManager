@@ -36,6 +36,7 @@ namespace GrantApp
 			this.btnSearch = new System.Windows.Forms.Button();
 			this.btnTimeline = new System.Windows.Forms.Button();
 			this.contactButton = new System.Windows.Forms.Button();
+			this.btnClear = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.grantGrid)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -92,7 +93,7 @@ namespace GrantApp
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.searchBox.Location = new System.Drawing.Point(12, 48);
 			this.searchBox.Name = "searchBox";
-			this.searchBox.Size = new System.Drawing.Size(480, 20);
+			this.searchBox.Size = new System.Drawing.Size(451, 20);
 			this.searchBox.TabIndex = 15;
 			// 
 			// btnSearch
@@ -127,11 +128,22 @@ namespace GrantApp
 			this.contactButton.UseVisualStyleBackColor = true;
 			this.contactButton.Click += new System.EventHandler(this.editContactHistory);
 			// 
+			// btnClear
+			// 
+			this.btnClear.Location = new System.Drawing.Point(469, 46);
+			this.btnClear.Name = "btnClear";
+			this.btnClear.Size = new System.Drawing.Size(23, 23);
+			this.btnClear.TabIndex = 25;
+			this.btnClear.Text = "X";
+			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+			// 
 			// GrantManager
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(585, 560);
+			this.Controls.Add(this.btnClear);
 			this.Controls.Add(this.contactButton);
 			this.Controls.Add(this.btnTimeline);
 			this.Controls.Add(this.searchBox);
@@ -160,6 +172,7 @@ namespace GrantApp
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnTimeline;
         private System.Windows.Forms.Button contactButton;
+		private System.Windows.Forms.Button btnClear;
 
     }
 }

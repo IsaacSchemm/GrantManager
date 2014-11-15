@@ -36,6 +36,7 @@ namespace GrantApp
 			this.btnRefresh = new System.Windows.Forms.Button();
 			this.grantorGrid = new System.Windows.Forms.DataGridView();
 			this.searchBox = new System.Windows.Forms.TextBox();
+			this.btnClear = new System.Windows.Forms.Button();
 			this.flowLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grantorGrid)).BeginInit();
 			this.SuspendLayout();
@@ -124,14 +125,25 @@ namespace GrantApp
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.searchBox.Location = new System.Drawing.Point(15, 37);
 			this.searchBox.Name = "searchBox";
-			this.searchBox.Size = new System.Drawing.Size(480, 20);
+			this.searchBox.Size = new System.Drawing.Size(451, 20);
 			this.searchBox.TabIndex = 4;
+			// 
+			// btnClear
+			// 
+			this.btnClear.Location = new System.Drawing.Point(472, 35);
+			this.btnClear.Name = "btnClear";
+			this.btnClear.Size = new System.Drawing.Size(23, 23);
+			this.btnClear.TabIndex = 26;
+			this.btnClear.Text = "X";
+			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
 			// 
 			// GrantorManager
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(585, 491);
+			this.Controls.Add(this.btnClear);
 			this.Controls.Add(this.searchBox);
 			this.Controls.Add(this.grantorGrid);
 			this.Controls.Add(this.flowLayoutPanel1);
@@ -156,6 +168,7 @@ namespace GrantApp
         private System.Windows.Forms.DataGridView grantorGrid;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.TextBox searchBox;
+		private System.Windows.Forms.Button btnClear;
     }
 }
 

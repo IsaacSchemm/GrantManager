@@ -221,5 +221,13 @@ namespace GrantApp
                 Search_Project(sender, e);
             }
         }
+
+		/// <summary>
+		/// Clears the search box and restores the original non-filtered view.
+		/// </summary>
+		private void btnClear_Click(object sender, EventArgs e) {
+			searchBox.Text = "";
+			Search_Project(sender, e);
+		}
     }
 }

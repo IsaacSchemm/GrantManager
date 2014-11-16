@@ -218,6 +218,12 @@
       <DependentUpon>SelectItemToAddDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="TimelineManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimelineManager.Designer.cs">
+      <DependentUpon>TimelineManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectItemToAddDialog.resx">
       <DependentUpon>SelectItemToAddDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimelineManager.resx">
+      <DependentUpon>TimelineManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserManager.resx">
       <DependentUpon>UserManager.cs</DependentUpon>

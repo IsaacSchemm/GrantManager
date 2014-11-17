@@ -24,12 +24,17 @@ namespace GrantApp {
 				foreach (timeline_date d in db.timeline_dates.Where(d => d.grant_id == grant_id).OrderBy(d => d.date)) {
 					int i = dataGridView1.Rows.Add();
 					dataGridView1.Rows[i].SetValues(d.timeline_date_id, d.date.ToString("d"), d.name, d.color);
-					dataGridView1.Rows[i].Cells[4].Style.BackColor = Color.FromName(d.color);
+					SetRowColor(i, Color.FromName(d.color));
 				}
 			}
 
 			dataGridView1.CurrentCellDirtyStateChanged += dataGridView1_CurrentCellDirtyStateChanged;
 			dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+		}
+
+		private void SetRowColor(int i, Color c) {
+			dataGridView1.Rows[i].Cells[4].Style.BackColor = c;
+			dataGridView1.Rows[i].Cells[4].Style.SelectionBackColor = c;
 		}
 
 		void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e) {
@@ -41,21 +46,39 @@ namespace GrantApp {
 
 		void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
 			if (e.ColumnIndex == 3) {
-				dataGridView1.Rows[e.RowIndex].Cells[4].Style.BackColor = Color.FromName(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+				SetRowColor(e.RowIndex, Color.FromName(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
 			}
 		}
 
 		private void Save_Click(object sender, EventArgs e) {
 			using (var db = new DataClasses1DataContext()) {
-				for (int i = 0; i < dataGridView1.Rows.Count - 1; i++) {
-					var row = dataGridView1.Rows[i];
+				string grant_name = db.grants.Where(g => g.grant_id == grant_id).Select(g => g.grant_name).Single();
 
-					int tmp;
-					if (row.Cells[0].Value != null && int.TryParse(row.Cells[0].Value.ToString(), out tmp)) {
-						timeline_date d = db.timeline_dates.Single(f => f.timeline_date_id == tmp);
+				HashSet<int> ids = new HashSet<int>();
+				for (int i = 0; i < dataGridView1.Rows.Count; i++) {
+					var row = dataGridView1.Rows[i];
+					if (row.IsNewRow) continue;
+
+					int id;
+					if (row.Cells[0].Value != null && int.TryParse(row.Cells[0].Value.ToString(), out id)) {
+						ids.Add(id);
+						timeline_date d = db.timeline_dates.Single(f => f.timeline_date_id == id);
+
+						string oldname = d.name;
+						DateTime olddate = d.date;
+
 						d.date = DateTime.Parse(row.Cells[1].Value.ToString());
 						d.name = row.Cells[2].Value.ToString();
 						d.color = row.Cells[3].Value.ToString();
+
+						if (oldname != d.name || olddate != d.date) {
+							db.changelogs.InsertOnSubmit(new changelog {
+								object_edited = "timeline for grant " + grant_name,
+								username = Login.currentUser,
+								date = DateTime.Now,
+								details = string.Format("Date edited ({0} {1} -> {2} {3})", oldname, olddate, d.name, d.date)
+							});
+						}
 					} else {
 						var d = new timeline_date {
 							date = DateTime.Parse(row.Cells[1].Value.ToString()),
@@ -64,10 +87,28 @@ namespace GrantApp {
 							color = row.Cells[3].Value.ToString()
 						};
 						db.timeline_dates.InsertOnSubmit(d);
+
+						db.changelogs.InsertOnSubmit(new changelog {
+							object_edited = "timeline for grant " + grant_name,
+							username = Login.currentUser,
+							date = DateTime.Now,
+							details = string.Format("Date added ({0} {1})", d.name, d.date)
+						});
 					}
+				}
+
+				foreach (timeline_date d in db.timeline_dates.Where(f => !ids.ToArray().Contains(f.timeline_date_id))) {
+					db.timeline_dates.DeleteOnSubmit(d);
+					db.changelogs.InsertOnSubmit(new changelog {
+						object_edited = "timeline for grant " + grant_name,
+						username = Login.currentUser,
+						date = DateTime.Now,
+						details = string.Format("Date removed ({0} {1})", d.name, d.date)
+					});
 				}
 				db.SubmitChanges();
 			}
+			this.Close();
 		}
 	}
 }

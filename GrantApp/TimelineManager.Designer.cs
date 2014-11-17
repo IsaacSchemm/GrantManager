@@ -35,6 +35,7 @@
 			// 
 			// dataGridView1
 			// 
+			this.dataGridView1.AllowUserToOrderColumns = true;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IDCol,
@@ -42,14 +43,15 @@
             this.NameCol,
             this.ColorCol,
             this.ColorPreview});
-			this.dataGridView1.Location = new System.Drawing.Point(33, 60);
+			this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+			this.dataGridView1.Location = new System.Drawing.Point(12, 12);
 			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(525, 388);
+			this.dataGridView1.Size = new System.Drawing.Size(562, 443);
 			this.dataGridView1.TabIndex = 0;
 			// 
 			// Save
 			// 
-			this.Save.Location = new System.Drawing.Point(33, 461);
+			this.Save.Location = new System.Drawing.Point(499, 461);
 			this.Save.Name = "Save";
 			this.Save.Size = new System.Drawing.Size(75, 23);
 			this.Save.TabIndex = 1;
@@ -61,7 +63,6 @@
 			// 
 			this.IDCol.HeaderText = "ID";
 			this.IDCol.Name = "IDCol";
-			this.IDCol.ReadOnly = true;
 			this.IDCol.Visible = false;
 			// 
 			// DateCol
@@ -71,6 +72,7 @@
 			// 
 			// NameCol
 			// 
+			this.NameCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.NameCol.HeaderText = "Name";
 			this.NameCol.Name = "NameCol";
 			// 
@@ -87,7 +89,7 @@
 			// 
 			this.ColorPreview.HeaderText = "";
 			this.ColorPreview.Name = "ColorPreview";
-			this.ColorPreview.ReadOnly = true;
+			this.ColorPreview.Width = 50;
 			// 
 			// TimelineManager
 			// 

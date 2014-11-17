@@ -205,6 +205,8 @@ namespace GrantApp
             GrantManager gm = new GrantManager();
 			gm.WindowState = this.WindowState;
             gm.ShowDialog(this);
+
+			PopulateCalendar();
 		}
 
         /// <summary>

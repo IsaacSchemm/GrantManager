@@ -18,7 +18,9 @@ namespace GrantApp {
 			this.grant_id = grant_id;
 
 			this.ColorCol.Items.Clear();
-			this.ColorCol.Items.AddRange(Enum.GetNames(typeof(KnownColor)));
+			for (KnownColor c = KnownColor.AliceBlue; c <= KnownColor.YellowGreen; c++) {
+				this.ColorCol.Items.Add(c.ToString("G"));
+			}
 
 			using (var db = new DataClasses1DataContext()) {
 				foreach (timeline_date d in db.timeline_dates.Where(d => d.grant_id == grant_id).OrderBy(d => d.date)) {

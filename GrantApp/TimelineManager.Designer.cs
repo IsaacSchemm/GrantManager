@@ -24,12 +24,12 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.Save = new System.Windows.Forms.Button();
 			this.IDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DateCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.NameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColorCol = new System.Windows.Forms.DataGridViewComboBoxColumn();
 			this.ColorPreview = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Save = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -48,16 +48,8 @@
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.Size = new System.Drawing.Size(562, 443);
 			this.dataGridView1.TabIndex = 0;
-			// 
-			// Save
-			// 
-			this.Save.Location = new System.Drawing.Point(499, 461);
-			this.Save.Name = "Save";
-			this.Save.Size = new System.Drawing.Size(75, 23);
-			this.Save.TabIndex = 1;
-			this.Save.Text = "btnSave";
-			this.Save.UseVisualStyleBackColor = true;
-			this.Save.Click += new System.EventHandler(this.Save_Click);
+			this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
+			this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
 			// 
 			// IDCol
 			// 
@@ -90,6 +82,16 @@
 			this.ColorPreview.HeaderText = "";
 			this.ColorPreview.Name = "ColorPreview";
 			this.ColorPreview.Width = 50;
+			// 
+			// Save
+			// 
+			this.Save.Location = new System.Drawing.Point(499, 461);
+			this.Save.Name = "Save";
+			this.Save.Size = new System.Drawing.Size(75, 23);
+			this.Save.TabIndex = 1;
+			this.Save.Text = "btnSave";
+			this.Save.UseVisualStyleBackColor = true;
+			this.Save.Click += new System.EventHandler(this.Save_Click);
 			// 
 			// TimelineManager
 			// 

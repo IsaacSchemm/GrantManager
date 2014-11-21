@@ -11,6 +11,7 @@ using System.Windows.Forms;
 namespace GrantApp {
 	public partial class TimelineManager : Form {
 		private int grant_id;
+		private object oldcellvalue;
 
 		public TimelineManager(int grant_id) {
 			InitializeComponent();
@@ -111,6 +112,24 @@ namespace GrantApp {
 				db.SubmitChanges();
 			}
 			this.Close();
+		}
+
+		private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e) {
+			oldcellvalue = dataGridView1[e.ColumnIndex, e.RowIndex].Value;
+		}
+
+		private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
+			object newcellvalue = dataGridView1[e.ColumnIndex, e.RowIndex].Value;
+			switch (e.ColumnIndex) {
+				case 1:
+					DateTime dt;
+					if (DateTime.TryParse(newcellvalue.ToString(), out dt)) {
+						dataGridView1[e.ColumnIndex, e.RowIndex].Value = dt.ToString("d");
+					} else {
+						dataGridView1[e.ColumnIndex, e.RowIndex].Value = oldcellvalue;
+					}
+					break;
+			}
 		}
 	}
 }

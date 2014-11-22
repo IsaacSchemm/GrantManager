@@ -161,6 +161,12 @@
     <Compile Include="DocumentationManager.Designer.cs">
       <DependentUpon>DocumentationManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExpandedTextDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExpandedTextDialog.Designer.cs">
+      <DependentUpon>ExpandedTextDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GrantDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +224,12 @@
       <DependentUpon>SelectItemToAddDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="TextBoxWithExpandButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextBoxWithExpandButton.Designer.cs">
+      <DependentUpon>TextBoxWithExpandButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimelineManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,6 +282,9 @@
     <EmbeddedResource Include="DocumentationManager.resx">
       <DependentUpon>DocumentationManager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExpandedTextDialog.resx">
+      <DependentUpon>ExpandedTextDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProgramManager.resx">
       <DependentUpon>ProgramManager.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectItemToAddDialog.resx">
       <DependentUpon>SelectItemToAddDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextBoxWithExpandButton.resx">
+      <DependentUpon>TextBoxWithExpandButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimelineManager.resx">
       <DependentUpon>TimelineManager.cs</DependentUpon>

@@ -84,10 +84,10 @@ namespace GrantApp {
 						}
 					} else {
 						var d = new timeline_date {
-							date = DateTime.Parse(row.Cells[1].Value.ToString()),
+							date = DateTime.Parse((row.Cells[1].Value ?? new DateTime(1900, 1, 1)).ToString()),
 							grant_id = this.grant_id,
-							name = row.Cells[2].Value.ToString(),
-							color = row.Cells[3].Value.ToString()
+							name = (row.Cells[2].Value ?? "").ToString(),
+							color = (row.Cells[3].Value ?? "Yellow").ToString()
 						};
 						db.timeline_dates.InsertOnSubmit(d);
 
@@ -100,7 +100,7 @@ namespace GrantApp {
 					}
 				}
 
-				foreach (timeline_date d in db.timeline_dates.Where(f => !ids.ToArray().Contains(f.timeline_date_id))) {
+				foreach (timeline_date d in db.timeline_dates.Where(f => f.grant_id == grant_id && !ids.ToArray().Contains(f.timeline_date_id))) {
 					db.timeline_dates.DeleteOnSubmit(d);
 					db.changelogs.InsertOnSubmit(new changelog {
 						object_edited = "timeline for grant " + grant_name,
@@ -123,7 +123,7 @@ namespace GrantApp {
 			switch (e.ColumnIndex) {
 				case 1:
 					DateTime dt;
-					if (DateTime.TryParse(newcellvalue.ToString(), out dt)) {
+					if (DateTime.TryParse(newcellvalue + "", out dt)) {
 						dataGridView1[e.ColumnIndex, e.RowIndex].Value = dt.ToString("d");
 					} else {
 						dataGridView1[e.ColumnIndex, e.RowIndex].Value = oldcellvalue;

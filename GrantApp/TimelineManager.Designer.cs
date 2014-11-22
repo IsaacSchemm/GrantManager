@@ -29,13 +29,17 @@
 			this.NameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColorCol = new System.Windows.Forms.DataGridViewComboBoxColumn();
 			this.ColorPreview = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Save = new System.Windows.Forms.Button();
+			this.btnSave = new System.Windows.Forms.Button();
+			this.btnCancel = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// dataGridView1
 			// 
 			this.dataGridView1.AllowUserToOrderColumns = true;
+			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IDCol,
@@ -83,25 +87,41 @@
 			this.ColorPreview.Name = "ColorPreview";
 			this.ColorPreview.Width = 50;
 			// 
-			// Save
+			// btnSave
 			// 
-			this.Save.Location = new System.Drawing.Point(499, 461);
-			this.Save.Name = "Save";
-			this.Save.Size = new System.Drawing.Size(75, 23);
-			this.Save.TabIndex = 1;
-			this.Save.Text = "btnSave";
-			this.Save.UseVisualStyleBackColor = true;
-			this.Save.Click += new System.EventHandler(this.Save_Click);
+			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnSave.Location = new System.Drawing.Point(418, 461);
+			this.btnSave.Name = "btnSave";
+			this.btnSave.Size = new System.Drawing.Size(75, 23);
+			this.btnSave.TabIndex = 1;
+			this.btnSave.Text = "Save";
+			this.btnSave.UseVisualStyleBackColor = true;
+			this.btnSave.Click += new System.EventHandler(this.Save_Click);
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnCancel.Location = new System.Drawing.Point(499, 461);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.TabIndex = 2;
+			this.btnCancel.Text = "Cancel";
+			this.btnCancel.UseVisualStyleBackColor = true;
 			// 
 			// TimelineManager
 			// 
+			this.AcceptButton = this.btnSave;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(586, 496);
-			this.Controls.Add(this.Save);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.dataGridView1);
 			this.Name = "TimelineManager";
-			this.Text = "TimelineManager";
+			this.Text = "Grant Timeline";
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 
@@ -110,11 +130,12 @@
 		#endregion
 
 		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.Button Save;
+		private System.Windows.Forms.Button btnSave;
 		private System.Windows.Forms.DataGridViewTextBoxColumn IDCol;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DateCol;
 		private System.Windows.Forms.DataGridViewTextBoxColumn NameCol;
 		private System.Windows.Forms.DataGridViewComboBoxColumn ColorCol;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ColorPreview;
+		private System.Windows.Forms.Button btnCancel;
 	}
 }

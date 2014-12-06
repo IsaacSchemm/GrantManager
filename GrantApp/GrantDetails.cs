@@ -122,15 +122,15 @@ namespace GrantApp
                                 where dr.grant_id == currentGrant.grant_id
                                 select dt);
 
-                documentationLabel.Text = "";
+                requirementsLabel.Text = "";
                 count = 0;
                 foreach (documentation_type dt in docTypes)
                 {
-                    documentationLabel.Text += dt.name;
+                    requirementsLabel.Text += dt.name;
 
                     if (count < docTypes.Count() - 1)
                     {
-                        documentationLabel.Text += ", ";
+                        requirementsLabel.Text += ", ";
                     }
 
                     count++;

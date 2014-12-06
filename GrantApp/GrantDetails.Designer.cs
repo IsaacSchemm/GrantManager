@@ -59,7 +59,7 @@ namespace GrantApp
 			this.label15 = new System.Windows.Forms.Label();
 			this.programLabel = new System.Windows.Forms.TextBox();
 			this.projectLabel = new System.Windows.Forms.TextBox();
-			this.documentationLabel = new System.Windows.Forms.TextBox();
+			this.requirementsLabel = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.emphasisLabel = new System.Windows.Forms.Label();
 			this.label16 = new System.Windows.Forms.Label();
@@ -402,20 +402,20 @@ namespace GrantApp
 			this.projectLabel.TabIndex = 32;
 			this.projectLabel.Text = "Projects Label";
 			// 
-			// documentationLabel
+			// requirementsLabel
 			// 
-			this.documentationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.requirementsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.documentationLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.documentationLabel.Location = new System.Drawing.Point(423, 297);
-			this.documentationLabel.Margin = new System.Windows.Forms.Padding(8);
-			this.documentationLabel.Multiline = true;
-			this.documentationLabel.Name = "documentationLabel";
-			this.documentationLabel.ReadOnly = true;
-			this.documentationLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.documentationLabel.Size = new System.Drawing.Size(247, 64);
-			this.documentationLabel.TabIndex = 33;
-			this.documentationLabel.Text = "Documentation Label";
+			this.requirementsLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.requirementsLabel.Location = new System.Drawing.Point(423, 297);
+			this.requirementsLabel.Margin = new System.Windows.Forms.Padding(8);
+			this.requirementsLabel.Multiline = true;
+			this.requirementsLabel.Name = "requirementsLabel";
+			this.requirementsLabel.ReadOnly = true;
+			this.requirementsLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.requirementsLabel.Size = new System.Drawing.Size(247, 64);
+			this.requirementsLabel.TabIndex = 33;
+			this.requirementsLabel.Text = "Requirements Label";
 			// 
 			// label8
 			// 
@@ -453,9 +453,9 @@ namespace GrantApp
 			this.label17.Location = new System.Drawing.Point(318, 297);
 			this.label17.Margin = new System.Windows.Forms.Padding(8);
 			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(62, 13);
+			this.label17.Size = new System.Drawing.Size(75, 13);
 			this.label17.TabIndex = 37;
-			this.label17.Text = "Doc Types:";
+			this.label17.Text = "Requirements:";
 			// 
 			// label18
 			// 
@@ -539,7 +539,7 @@ namespace GrantApp
 			this.Controls.Add(this.label16);
 			this.Controls.Add(this.emphasisLabel);
 			this.Controls.Add(this.label8);
-			this.Controls.Add(this.documentationLabel);
+			this.Controls.Add(this.requirementsLabel);
 			this.Controls.Add(this.projectLabel);
 			this.Controls.Add(this.programLabel);
 			this.Controls.Add(this.label15);
@@ -612,7 +612,7 @@ namespace GrantApp
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox programLabel;
         private System.Windows.Forms.TextBox projectLabel;
-        private System.Windows.Forms.TextBox documentationLabel;
+        private System.Windows.Forms.TextBox requirementsLabel;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label emphasisLabel;
         private System.Windows.Forms.Label label16;

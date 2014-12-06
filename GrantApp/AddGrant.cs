@@ -50,8 +50,8 @@ namespace GrantApp
                 projectsList.ValueMember = "project_id";
 
                 //doc type list
-                documentationList.DisplayMember = "name";
-                documentationList.ValueMember = "documentation_type_id";
+                requirementsList.DisplayMember = "name";
+                requirementsList.ValueMember = "documentation_type_id";
             }
 
             addGrantorButton.Click += new EventHandler(AddGrantorFromGrant);
@@ -109,7 +109,7 @@ namespace GrantApp
                 //first item in list box is selected by default
                 this.programsList.ClearSelected();
                 this.projectsList.ClearSelected();
-                this.documentationList.ClearSelected();
+                this.requirementsList.ClearSelected();
 
                 addAttachmentButton.Enabled = false;
             }
@@ -185,7 +185,7 @@ namespace GrantApp
                                     select d);
 
                     //add doc types to list box that are connected to this grant
-                    documentationList.Items.AddRange(doctypes.ToArray());
+                    requirementsList.Items.AddRange(doctypes.ToArray());
                 }
             }
 
@@ -356,7 +356,7 @@ namespace GrantApp
                 }
 
                 //add entry in grant-documentation linking table for every doc type in the list
-                foreach (documentation_type d in this.documentationList.Items)
+                foreach (documentation_type d in this.requirementsList.Items)
                 {
                     documentation_requirement dr = new documentation_requirement
                     {
@@ -465,7 +465,7 @@ namespace GrantApp
         /// </summary>
         private void docButton_Click(object sender, EventArgs e)
         {
-            new AddDocumentationType(documentationList).ShowDialog(this);
+            new AddDocumentationType(requirementsList).ShowDialog(this);
         }
 
         //getters for date fields
@@ -638,19 +638,19 @@ namespace GrantApp
         private void addDocTypeButton_Click(object sender, EventArgs e) {
             documentation_type d = SelectItemToAddDialog.SelectDocumentationType();
             if (d != null) {
-                foreach (documentation_type item in documentationList.Items) {
+                foreach (documentation_type item in requirementsList.Items) {
                     if (item.documentation_type_id == d.documentation_type_id) return; // already in list
                 }
-                documentationList.Items.Add(d);
+                requirementsList.Items.Add(d);
             }
         }
 
         private void deleteDocTypeButton_Click(object sender, EventArgs e) {
-            documentationList.Items.Remove(documentationList.SelectedItem);
+            requirementsList.Items.Remove(requirementsList.SelectedItem);
         }
 
         private void documentationList_SelectedIndexChanged(object sender, EventArgs e) {
-            deleteDocTypeButton.Enabled = (documentationList.SelectedIndex > -1);
+            deleteDocTypeButton.Enabled = (requirementsList.SelectedIndex > -1);
         }
 
     }

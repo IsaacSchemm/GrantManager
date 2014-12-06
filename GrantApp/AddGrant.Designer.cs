@@ -62,7 +62,7 @@ namespace GrantApp
 			this.label11 = new System.Windows.Forms.Label();
 			this.label16 = new System.Windows.Forms.Label();
 			this.projectsList = new System.Windows.Forms.ListBox();
-			this.documentationList = new System.Windows.Forms.ListBox();
+			this.requirementsList = new System.Windows.Forms.ListBox();
 			this.label17 = new System.Windows.Forms.Label();
 			this.cbSubmit = new System.Windows.Forms.CheckBox();
 			this.cbDue = new System.Windows.Forms.CheckBox();
@@ -283,7 +283,7 @@ namespace GrantApp
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(12, 492);
+			this.label9.Location = new System.Drawing.Point(15, 492);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(100, 13);
 			this.label9.TabIndex = 30;
@@ -292,7 +292,7 @@ namespace GrantApp
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(12, 517);
+			this.label10.Location = new System.Drawing.Point(15, 517);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(98, 13);
 			this.label10.TabIndex = 32;
@@ -319,7 +319,7 @@ namespace GrantApp
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(12, 555);
+			this.label12.Location = new System.Drawing.Point(15, 555);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(67, 13);
 			this.label12.TabIndex = 34;
@@ -327,16 +327,16 @@ namespace GrantApp
 			// 
 			// grantorUsernameText
 			// 
-			this.grantorUsernameText.Location = new System.Drawing.Point(116, 489);
+			this.grantorUsernameText.Location = new System.Drawing.Point(119, 489);
 			this.grantorUsernameText.Name = "grantorUsernameText";
-			this.grantorUsernameText.Size = new System.Drawing.Size(203, 20);
+			this.grantorUsernameText.Size = new System.Drawing.Size(200, 20);
 			this.grantorUsernameText.TabIndex = 31;
 			// 
 			// grantorPasswordText
 			// 
-			this.grantorPasswordText.Location = new System.Drawing.Point(116, 514);
+			this.grantorPasswordText.Location = new System.Drawing.Point(119, 514);
 			this.grantorPasswordText.Name = "grantorPasswordText";
-			this.grantorPasswordText.Size = new System.Drawing.Size(203, 20);
+			this.grantorPasswordText.Size = new System.Drawing.Size(200, 20);
 			this.grantorPasswordText.TabIndex = 33;
 			// 
 			// label15
@@ -392,27 +392,27 @@ namespace GrantApp
 			this.projectsList.TabIndex = 37;
 			this.projectsList.SelectedIndexChanged += new System.EventHandler(this.projectsList_SelectedIndexChanged);
 			// 
-			// documentationList
+			// requirementsList
 			// 
-			this.documentationList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.requirementsList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.documentationList.FormattingEnabled = true;
-			this.documentationList.Location = new System.Drawing.Point(595, 241);
-			this.documentationList.Name = "documentationList";
-			this.documentationList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-			this.documentationList.Size = new System.Drawing.Size(227, 95);
-			this.documentationList.Sorted = true;
-			this.documentationList.TabIndex = 51;
-			this.documentationList.SelectedIndexChanged += new System.EventHandler(this.documentationList_SelectedIndexChanged);
+			this.requirementsList.FormattingEnabled = true;
+			this.requirementsList.Location = new System.Drawing.Point(595, 241);
+			this.requirementsList.Name = "requirementsList";
+			this.requirementsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+			this.requirementsList.Size = new System.Drawing.Size(227, 95);
+			this.requirementsList.Sorted = true;
+			this.requirementsList.TabIndex = 51;
+			this.requirementsList.SelectedIndexChanged += new System.EventHandler(this.documentationList_SelectedIndexChanged);
 			// 
 			// label17
 			// 
 			this.label17.AutoSize = true;
 			this.label17.Location = new System.Drawing.Point(592, 225);
 			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(109, 13);
+			this.label17.Size = new System.Drawing.Size(75, 13);
 			this.label17.TabIndex = 50;
-			this.label17.Text = "Documentation Type:";
+			this.label17.Text = "Requirements:";
 			// 
 			// cbSubmit
 			// 
@@ -466,15 +466,15 @@ namespace GrantApp
 			// 
 			// grantorWebsiteText
 			// 
-			this.grantorWebsiteText.Location = new System.Drawing.Point(116, 463);
+			this.grantorWebsiteText.Location = new System.Drawing.Point(119, 463);
 			this.grantorWebsiteText.Name = "grantorWebsiteText";
-			this.grantorWebsiteText.Size = new System.Drawing.Size(203, 20);
+			this.grantorWebsiteText.Size = new System.Drawing.Size(200, 20);
 			this.grantorWebsiteText.TabIndex = 29;
 			// 
 			// label18
 			// 
 			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(12, 466);
+			this.label18.Location = new System.Drawing.Point(15, 466);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(49, 13);
 			this.label18.TabIndex = 28;
@@ -739,7 +739,7 @@ namespace GrantApp
 			this.Controls.Add(this.cbDue);
 			this.Controls.Add(this.cbSubmit);
 			this.Controls.Add(this.label17);
-			this.Controls.Add(this.documentationList);
+			this.Controls.Add(this.requirementsList);
 			this.Controls.Add(this.projectsList);
 			this.Controls.Add(this.label16);
 			this.Controls.Add(this.label11);
@@ -777,7 +777,7 @@ namespace GrantApp
 			this.Controls.Add(this.grantorDropdown);
 			this.Name = "AddGrant";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "`";
+			this.Text = "Grant Editor";
 			this.Load += new System.EventHandler(this.AddGrant_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -823,7 +823,7 @@ namespace GrantApp
 		private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.ListBox projectsList;
-		private System.Windows.Forms.ListBox documentationList;
+		private System.Windows.Forms.ListBox requirementsList;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox cbSubmit;
         private System.Windows.Forms.CheckBox cbDue;

@@ -70,14 +70,14 @@ namespace GrantApp
             };
             requestedAmountText.Validating += (o, e) => {
                 decimal tmp;
-                if (!decimal.TryParse(requestedAmountText.Text, out tmp)) {
+				if (!decimal.TryParse(requestedAmountText.Text.Replace("$", ""), out tmp)) {
                     e.Cancel = true;
                     MessageBox.Show(this, "You must enter a valid number for Requested Amount.");
                 }
             };
             actualAmountText.Validating += (o, e) => {
                 decimal tmp;
-                if (actualAmountText.TextLength > 0 && !decimal.TryParse(actualAmountText.Text, out tmp)) {
+				if (actualAmountText.TextLength > 0 && !decimal.TryParse(actualAmountText.Text.Replace("$", ""), out tmp)) {
                     e.Cancel = true;
                     MessageBox.Show(this, "You must enter a valid number for Actual Amount, or leave the field empty.");
                 }
@@ -148,8 +148,8 @@ namespace GrantApp
                         this.cbPayment.Checked = true; 
                         this.paymentDatePicker.Value = (DateTime)currentlyEditing.payment_date;
                         this.paymentDatePicker.Enabled = true; }
-                    this.requestedAmountText.Text = currentlyEditing.grant_requested_amount.ToString("0.00");
-                    this.actualAmountText.Text = currentlyEditing.grant_actual_amount == null ? "" : currentlyEditing.grant_actual_amount.Value.ToString("0.00");
+                    this.requestedAmountText.Text = currentlyEditing.grant_requested_amount.ToString("$0.00");
+                    this.actualAmountText.Text = currentlyEditing.grant_actual_amount == null ? "" : currentlyEditing.grant_actual_amount.Value.ToString("$0.00");
                     this.statusDropdown.SelectedValue = currentlyEditing.status;
                     this.grantorWebsiteText.Text = currentlyEditing.grantor_website;
                     this.grantorUsernameText.Text = currentlyEditing.grantor_username;
@@ -210,14 +210,14 @@ namespace GrantApp
 
             // error checking for money inputs - parse to decimal number
             decimal requested;
-            if (!Decimal.TryParse(this.requestedAmountText.Text, out requested))
+            if (!Decimal.TryParse(this.requestedAmountText.Text.Replace("$", ""), out requested))
             {
                 requested = 0;
             }
 
             decimal? actual;
             decimal tmp;
-            if (Decimal.TryParse(this.actualAmountText.Text, out tmp)) {
+			if (Decimal.TryParse(this.actualAmountText.Text.Replace("$", ""), out tmp)) {
                 actual = tmp;
             } else {
                 actual = null;

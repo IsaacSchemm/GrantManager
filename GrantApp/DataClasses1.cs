@@ -77,10 +77,8 @@ namespace GrantApp {
             StringBuilder sb = new StringBuilder("{");
             sb.Append(this.project_name + ", ");
             sb.Append(this.project_overview + ", ");
-            sb.Append(this.project_need_statement + ", ");
-            sb.Append(this.project_objectives + ", ");
-            sb.Append(this.project_evaluation_plan + ", ");
-            sb.Append(this.organizational_budget + ", ");
+			sb.Append(this.project_objectives + ", ");
+			sb.Append(this.project_outcomes + ", ");
             sb.Append(this.project_timeline + ", ");
             sb.Append(this.project_letters_support + ", ");
             sb.Append(this.notes + "}");

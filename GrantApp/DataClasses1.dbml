@@ -153,10 +153,8 @@
       <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="project_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="project_overview" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="project_need_statement" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="project_objectives" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="project_evaluation_plan" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="organizational_budget" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="project_outcomes" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="project_timeline" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="project_letters_support" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />

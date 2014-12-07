@@ -3393,13 +3393,9 @@ namespace GrantApp
 		
 		private string _project_overview;
 		
-		private string _project_need_statement;
-		
 		private string _project_objectives;
 		
-		private string _project_evaluation_plan;
-		
-		private string _organizational_budget;
+		private string _project_outcomes;
 		
 		private string _project_timeline;
 		
@@ -3419,14 +3415,10 @@ namespace GrantApp
     partial void Onproject_nameChanged();
     partial void Onproject_overviewChanging(string value);
     partial void Onproject_overviewChanged();
-    partial void Onproject_need_statementChanging(string value);
-    partial void Onproject_need_statementChanged();
     partial void Onproject_objectivesChanging(string value);
     partial void Onproject_objectivesChanged();
-    partial void Onproject_evaluation_planChanging(string value);
-    partial void Onproject_evaluation_planChanged();
-    partial void Onorganizational_budgetChanging(string value);
-    partial void Onorganizational_budgetChanged();
+    partial void Onproject_outcomesChanging(string value);
+    partial void Onproject_outcomesChanged();
     partial void Onproject_timelineChanging(string value);
     partial void Onproject_timelineChanged();
     partial void Onproject_letters_supportChanging(string value);
@@ -3501,26 +3493,6 @@ namespace GrantApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_project_need_statement", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string project_need_statement
-		{
-			get
-			{
-				return this._project_need_statement;
-			}
-			set
-			{
-				if ((this._project_need_statement != value))
-				{
-					this.Onproject_need_statementChanging(value);
-					this.SendPropertyChanging();
-					this._project_need_statement = value;
-					this.SendPropertyChanged("project_need_statement");
-					this.Onproject_need_statementChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_project_objectives", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
 		public string project_objectives
 		{
@@ -3541,42 +3513,22 @@ namespace GrantApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_project_evaluation_plan", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string project_evaluation_plan
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_project_outcomes", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string project_outcomes
 		{
 			get
 			{
-				return this._project_evaluation_plan;
+				return this._project_outcomes;
 			}
 			set
 			{
-				if ((this._project_evaluation_plan != value))
+				if ((this._project_outcomes != value))
 				{
-					this.Onproject_evaluation_planChanging(value);
+					this.Onproject_outcomesChanging(value);
 					this.SendPropertyChanging();
-					this._project_evaluation_plan = value;
-					this.SendPropertyChanged("project_evaluation_plan");
-					this.Onproject_evaluation_planChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_organizational_budget", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string organizational_budget
-		{
-			get
-			{
-				return this._organizational_budget;
-			}
-			set
-			{
-				if ((this._organizational_budget != value))
-				{
-					this.Onorganizational_budgetChanging(value);
-					this.SendPropertyChanging();
-					this._organizational_budget = value;
-					this.SendPropertyChanged("organizational_budget");
-					this.Onorganizational_budgetChanged();
+					this._project_outcomes = value;
+					this.SendPropertyChanged("project_outcomes");
+					this.Onproject_outcomesChanged();
 				}
 			}
 		}

@@ -23,3 +23,7 @@ CREATE TABLE [dbo].[timeline_date]
     [color] VARCHAR(MAX) NULL, 
     CONSTRAINT [FK_timeline_date_grant] FOREIGN KEY (grant_id) REFERENCES [grant](grant_id)
 )
+
+EXEC sp_rename 'dbo.project.project_evaluation_plan', 'project_outcomes', 'COLUMN'
+
+ALTER TABLE [project] DROP COLUMN project_need_statement, organizational_budget

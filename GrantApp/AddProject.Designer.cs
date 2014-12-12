@@ -42,9 +42,6 @@
 			this.notesText = new GrantApp.TextBoxWithExpandButton();
 			this.lettersText = new GrantApp.TextBoxWithExpandButton();
 			this.overviewText = new GrantApp.TextBoxWithExpandButton();
-			this.label3 = new System.Windows.Forms.Label();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -79,8 +76,9 @@
 			// 
 			// label5
 			// 
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(21, 222);
+			this.label5.Location = new System.Drawing.Point(312, 60);
 			this.label5.Margin = new System.Windows.Forms.Padding(8);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(58, 13);
@@ -89,8 +87,9 @@
 			// 
 			// label8
 			// 
+			this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(21, 303);
+			this.label8.Location = new System.Drawing.Point(312, 141);
 			this.label8.Margin = new System.Windows.Forms.Padding(8);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(94, 13);
@@ -100,7 +99,7 @@
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(24, 384);
+			this.label9.Location = new System.Drawing.Point(24, 222);
 			this.label9.Margin = new System.Windows.Forms.Padding(8);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(38, 13);
@@ -110,7 +109,7 @@
 			// submitButton
 			// 
 			this.submitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.submitButton.Location = new System.Drawing.Point(401, 440);
+			this.submitButton.Location = new System.Drawing.Point(418, 321);
 			this.submitButton.Margin = new System.Windows.Forms.Padding(8);
 			this.submitButton.Name = "submitButton";
 			this.submitButton.Size = new System.Drawing.Size(75, 23);
@@ -123,7 +122,7 @@
 			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.cancelButton.CausesValidation = false;
 			this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.cancelButton.Location = new System.Drawing.Point(492, 440);
+			this.cancelButton.Location = new System.Drawing.Point(509, 321);
 			this.cancelButton.Margin = new System.Windows.Forms.Padding(8);
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -138,7 +137,7 @@
 			this.nameText.Location = new System.Drawing.Point(117, 24);
 			this.nameText.Margin = new System.Windows.Forms.Padding(8);
 			this.nameText.Name = "nameText";
-			this.nameText.Size = new System.Drawing.Size(179, 20);
+			this.nameText.Size = new System.Drawing.Size(467, 20);
 			this.nameText.TabIndex = 11;
 			// 
 			// objectivesText
@@ -158,9 +157,8 @@
 			// outcomesText
 			// 
 			this.outcomesText.AcceptsReturn = true;
-			this.outcomesText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.outcomesText.Location = new System.Drawing.Point(117, 222);
+			this.outcomesText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.outcomesText.Location = new System.Drawing.Point(405, 60);
 			this.outcomesText.Margin = new System.Windows.Forms.Padding(8);
 			this.outcomesText.Multiline = true;
 			this.outcomesText.Name = "outcomesText";
@@ -175,21 +173,20 @@
 			this.notesText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.notesText.Location = new System.Drawing.Point(117, 384);
+			this.notesText.Location = new System.Drawing.Point(117, 222);
 			this.notesText.Margin = new System.Windows.Forms.Padding(8);
 			this.notesText.Multiline = true;
 			this.notesText.Name = "notesText";
 			this.notesText.ReadOnly = false;
 			this.notesText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.notesText.Size = new System.Drawing.Size(179, 40);
+			this.notesText.Size = new System.Drawing.Size(467, 83);
 			this.notesText.TabIndex = 19;
 			// 
 			// lettersText
 			// 
 			this.lettersText.AcceptsReturn = true;
-			this.lettersText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lettersText.Location = new System.Drawing.Point(117, 303);
+			this.lettersText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lettersText.Location = new System.Drawing.Point(405, 141);
 			this.lettersText.Margin = new System.Windows.Forms.Padding(8);
 			this.lettersText.Multiline = true;
 			this.lettersText.Name = "lettersText";
@@ -212,37 +209,13 @@
 			this.overviewText.Size = new System.Drawing.Size(179, 65);
 			this.overviewText.TabIndex = 12;
 			// 
-			// label3
-			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(312, 27);
-			this.label3.Margin = new System.Windows.Forms.Padding(8);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(114, 13);
-			this.label3.TabIndex = 22;
-			this.label3.Text = "Organizational Budget:";
-			// 
-			// dataGridView1
-			// 
-			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(315, 56);
-			this.dataGridView1.Margin = new System.Windows.Forms.Padding(8);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(252, 368);
-			this.dataGridView1.TabIndex = 23;
-			// 
 			// AddProject
 			// 
 			this.AcceptButton = this.submitButton;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cancelButton;
-			this.ClientSize = new System.Drawing.Size(584, 480);
-			this.Controls.Add(this.dataGridView1);
-			this.Controls.Add(this.label3);
+			this.ClientSize = new System.Drawing.Size(601, 361);
 			this.Controls.Add(this.lettersText);
 			this.Controls.Add(this.notesText);
 			this.Controls.Add(this.outcomesText);
@@ -261,7 +234,6 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Project Editor";
 			this.Load += new System.EventHandler(this.AddProject_Load);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -283,7 +255,5 @@
 		private TextBoxWithExpandButton notesText;
 		private TextBoxWithExpandButton lettersText;
 		private TextBoxWithExpandButton overviewText;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

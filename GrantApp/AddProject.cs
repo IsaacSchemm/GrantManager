@@ -64,7 +64,7 @@ namespace GrantApp
                     this.overviewText.Text = currentlyEditing.project_overview;
                     //this.needStatementText.Text = currentlyEditing.project_need_statement;
                     this.objectivesText.Text = currentlyEditing.project_objectives;
-                    this.outcomesText.Text = currentlyEditing.project_evaluation_plan;
+					this.outcomesText.Text = currentlyEditing.project_outcomes;
                     //this.budgetText.Text = currentlyEditing.organizational_budget;
                     //this.timelineText.Text = currentlyEditing.project_timeline;
                     this.lettersText.Text = currentlyEditing.project_letters_support;
@@ -119,7 +119,7 @@ namespace GrantApp
                     currentlyEditing.project_overview = this.overviewText.Text;
 					//currentlyEditing.project_need_statement = this.needStatementText.Text;
                     currentlyEditing.project_objectives = this.objectivesText.Text;
-                    currentlyEditing.project_evaluation_plan = this.outcomesText.Text;
+					currentlyEditing.project_outcomes = this.outcomesText.Text;
 					//currentlyEditing.organizational_budget = this.budgetText.Text;
 					//currentlyEditing.project_timeline = this.timelineText.Text;
                     currentlyEditing.project_letters_support = this.lettersText.Text;
@@ -137,7 +137,7 @@ namespace GrantApp
                         project_overview = this.overviewText.Text,
 						//project_need_statement = this.needStatementText.Text,
                         project_objectives = this.objectivesText.Text,
-                        project_evaluation_plan = this.outcomesText.Text,
+						project_outcomes = this.outcomesText.Text,
 						//organizational_budget = this.budgetText.Text,
 						//project_timeline = this.timelineText.Text,
                         project_letters_support = this.lettersText.Text,

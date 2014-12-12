@@ -60,6 +60,8 @@ namespace GrantApp
                 {
                     var q = from g in db.grantors
                             where g.organization_name.Contains(searchBox.Text)
+							|| g.buzzwords.Contains(searchBox.Text)
+							|| g.notes.Contains(searchBox.Text)
                             orderby g.organization_name
                             select new
                             {

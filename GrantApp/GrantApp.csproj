@@ -230,6 +230,12 @@
     <Compile Include="TextBoxWithExpandButton.Designer.cs">
       <DependentUpon>TextBoxWithExpandButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="BudgetManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BudgetManager.Designer.cs">
+      <DependentUpon>BudgetManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimelineManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -244,6 +250,7 @@
     </Compile>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AboutLicense.resx">
       <DependentUpon>AboutLicense.cs</DependentUpon>
@@ -299,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TextBoxWithExpandButton.resx">
       <DependentUpon>TextBoxWithExpandButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BudgetManager.resx">
+      <DependentUpon>BudgetManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimelineManager.resx">
       <DependentUpon>TimelineManager.cs</DependentUpon>

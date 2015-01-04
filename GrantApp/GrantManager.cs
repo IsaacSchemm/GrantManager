@@ -304,5 +304,16 @@ namespace GrantApp
 			new TimelineManager(id).ShowDialog(this);
 		}
 
+		private void btnBudget_Click(object sender, EventArgs e) {
+			//find id
+			int id = 0;
+			foreach (DataGridViewRow row in grantGrid.SelectedRows) {
+				id = (int)row.Cells["ID"].Value;
+			}
+
+			//open window
+			new BudgetManager(id).ShowDialog(this);
+		}
+
     }
 }

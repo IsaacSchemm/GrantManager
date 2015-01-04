@@ -27,3 +27,13 @@ CREATE TABLE [dbo].[timeline_date]
 EXEC sp_rename 'dbo.project.project_evaluation_plan', 'project_outcomes', 'COLUMN'
 
 ALTER TABLE [project] DROP COLUMN project_need_statement, organizational_budget
+
+CREATE TABLE [dbo].[budget_item]
+(
+	[budget_item_id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [grant_id] INT NOT NULL, 
+    [name] VARCHAR(MAX) NOT NULL, 
+    [amount] MONEY NOT NULL,
+	[sort_order] INT NOT NULL DEFAULT(0),
+    CONSTRAINT [FK_budget_item_grant] FOREIGN KEY (grant_id) REFERENCES [grant](grant_id)
+)

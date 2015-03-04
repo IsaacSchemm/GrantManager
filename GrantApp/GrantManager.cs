@@ -35,60 +35,68 @@ namespace GrantApp
             RefreshGrants();
         }
 
+		private string shortDate(DateTime? dt) {
+			return dt == null
+				? ""
+				: dt.Value.ToShortDateString();
+		}
+
         /// <summary>
         /// Reloads the list of grants.
         /// </summary>
         internal void RefreshGrants()
         {
-            //if search box text is empty, load all grants
-            if (searchBox.Text == "")
+            using (DataClasses1DataContext db = new DataClasses1DataContext())
             {
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                IEnumerable<dynamic> q;
+
+                //if search box text is empty, load all grants
+                if (searchBox.Text == "")
                 {
-                    var q = from g in db.grants
-                            select new
-                            {
-                                ID = g.grant_id,
-                                Name = g.grant_name,
-                                Status = g.status_type.description,
-                                SubmitDate = g.submit_date,
-                                DueDate = g.due_date,
-                                StartDate = g.start_date,
-                                Amount = g.grant_actual_amount,
-								File = db.attachments.Any(a => a.grant_id == g.grant_id) ? paperclip : blank,
-                            };
-                    grantGrid.DataSource = q;
-
-                    //hide id column
-                    grantGrid.Columns[0].Visible = false;
+                    q = from g in db.grants
+                        select new {
+                            ID = g.grant_id,
+                            Name = g.grant_name,
+                            Status = g.status_type.description,
+                            SubmitDate = g.submit_date,
+                            DueDate = g.due_date,
+                            StartDate = g.start_date,
+                            Amount = g.grant_actual_amount,
+                            AnyAttachments = db.attachments.Any(a => a.grant_id == g.grant_id),
+                        };
                 }
-            }
-            //otherwise only load grants whose names matches the search text
-            else
-            {
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                //otherwise only load grants whose names matches the search text
+                else
                 {
-                    var q = from g in db.grants
-                            where g.grant_name.Contains(searchBox.Text)
-							|| g.notes.Contains(searchBox.Text)
-                            select new
-
-                            {
-                                ID = g.grant_id,
-                                Name = g.grant_name,
-                                Status = g.status_type.description,
-                                SubmitDate = g.submit_date,
-                                DueDate = g.due_date,
-                                StartDate = g.start_date,
-                                Amount = g.grant_actual_amount,
-								File = db.attachments.Any(a => a.grant_id == g.grant_id) ? paperclip : blank,
-                            };
-                    grantGrid.DataSource = q;
-
-                    //hide id column
-                    grantGrid.Columns[0].Visible = false;
+                    q = from g in db.grants
+                        where g.grant_name.Contains(searchBox.Text)
+                        || g.notes.Contains(searchBox.Text)
+                        select new {
+                            ID = g.grant_id,
+                            Name = g.grant_name,
+                            Status = g.status_type.description,
+                            SubmitDate = g.submit_date,
+                            DueDate = g.due_date,
+                            StartDate = g.start_date,
+                            Amount = g.grant_actual_amount,
+                            AnyAttachments = db.attachments.Any(a => a.grant_id == g.grant_id),
+                        };
                 }
+
+                grantGrid.DataSource = q.ToList().Select(g => new {
+                    g.ID,
+                    g.Name,
+                    g.Status,
+                    SubmitDate = shortDate(g.SubmitDate),
+                    DueDate = shortDate(g.DueDate),
+                    StartDate = shortDate(g.StartDate),
+                    Amount = (g.Amount == null) ? "" : ((decimal)g.Amount).ToString("c"),
+                    File = g.AnyAttachments ? paperclip : blank
+                }).ToList();
             }
+
+            //hide id column
+            grantGrid.Columns[0].Visible = false;
         }
 
         /// <summary>

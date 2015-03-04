@@ -48,7 +48,9 @@ namespace GrantApp
                 //determine whether user was found
                 try {
 					any = q.Any();
-				} catch (SqlException) {
+				} catch (SqlException x) {
+					System.Console.Error.WriteLine(x.Message);
+					System.Console.Error.WriteLine(x.StackTrace);
 					MessageBox.Show(this, "The application could not connect to the database. Please try again.");
 					return;
 				}

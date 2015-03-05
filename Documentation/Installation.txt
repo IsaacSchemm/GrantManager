@@ -9,10 +9,12 @@ You can follow the directions on this page - http://wiki.octopusnetwork.org/page
 3. Run the SQL scripts in Management Studio, in alphabetical order. (Alternatively, you can run the file "Scripts 1-16 combined.sql".)
 The script 16-create db user.sql creates a database user/password. By default, the username is "grantuser" and the password is "pw,1,LVCV". You can change these if you like.
 
-4a. On each computer, copy GrantApp.exe, GrantApp.exe.config, GrantApp.pdb and MonthCalendar.dll to a folder. (You can find them in GrantApp/bin/Release.)
+4. Run the script "version 2.0.sql" in the updates folder. This will update the database from a v1.0 schema to a v2.0 schema (by adding tables for attachments, timeline dates, and budget items, and dropping some unused columns.)
+
+5. On each computer, copy GrantApp.exe, GrantApp.exe.config, GrantApp.pdb and MonthCalendar.dll to a folder. (You can find them in GrantApp/bin/Release.)
 Database2.mdf and Database2_log.ldf are not needed - they contain an empty database stored locally, and you have a database on your server.
 
-4b. GrantApp.exe.config is a text file. Since you're not using Database2.mdf, change it to look something like this:
+6. GrantApp.exe.config is a text file. Since you're not using Database2.mdf, change it to look something like this:
 	<?xml version="1.0" encoding="utf-8" ?>
 	<configuration>
 	  <connectionStrings>

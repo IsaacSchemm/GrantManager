@@ -135,7 +135,7 @@
 			this.Controls.Add(this.docGrid);
 			this.Name = "Documentation";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Documentation Types";
+			this.Text = "Requirement Types";
 			((System.ComponentModel.ISupportInitialize)(this.docGrid)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();

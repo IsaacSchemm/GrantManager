@@ -268,7 +268,7 @@ namespace GrantApp
         {
 			using (DataClasses1DataContext db = new DataClasses1DataContext()) {
 				if (!db.approaches.Any()) {
-					MessageBox.Show(this, "No possible approaches (e.g. email, phone, in-person...) are listed. Please add one from the Administration panel.");
+					MessageBox.Show(this, "No possible approaches (e.g. email, phone, in-person...) are available. Please add one from the Administration panel.");
 					return;
 				}
 			}

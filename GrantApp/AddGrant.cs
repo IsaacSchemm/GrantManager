@@ -250,15 +250,15 @@ namespace GrantApp
 
                     //record null for dates if checkboxes were not checked
                     if (!cbSubmit.Checked) { currentlyEditing.submit_date = null; }
-                    else { currentlyEditing.submit_date = this.submitDatePicker.Value; }
+                    else { currentlyEditing.submit_date = this.submitDatePicker.Value.Date; }
                     if (!cbDue.Checked) { currentlyEditing.due_date = null; }
-                    else{currentlyEditing.due_date = this.dueDatePicker.Value;}
+                    else{currentlyEditing.due_date = this.dueDatePicker.Value.Date;}
                     if (!cbTurnAround.Checked) { currentlyEditing.turnaround_time = null; }
-                    else { currentlyEditing.turnaround_time = this.turnaroundPicker.Value; }
+                    else { currentlyEditing.turnaround_time = this.turnaroundPicker.Value.Date; }
                     if (!cbStart.Checked) { currentlyEditing.start_date = null; }
-                    else { currentlyEditing.start_date = this.startDatePicker.Value; }
+                    else { currentlyEditing.start_date = this.startDatePicker.Value.Date; }
                     if (!cbPayment.Checked) { currentlyEditing.payment_date = null; }
-                    else { currentlyEditing.payment_date = this.paymentDatePicker.Value; }
+                    else { currentlyEditing.payment_date = this.paymentDatePicker.Value.Date; }
                     currentlyEditing.grant_requested_amount = requested;
                     currentlyEditing.grant_actual_amount = actual;
 
@@ -474,27 +474,27 @@ namespace GrantApp
         private Nullable<DateTime> getSubmit()
         {
             if (!cbSubmit.Checked) { return null; }
-            else { return this.submitDatePicker.Value; }
+            else { return this.submitDatePicker.Value.Date; }
         }
         private Nullable<DateTime> getDueDate()
         {
             if (!cbDue.Checked) { return null; }
-            else { return this.dueDatePicker.Value; }
+            else { return this.dueDatePicker.Value.Date; }
         }
         private Nullable<DateTime> getTurnaround()
         {
             if (!cbTurnAround.Checked) { return null; }
-            else { return this.turnaroundPicker.Value; }
+            else { return this.turnaroundPicker.Value.Date; }
         }
         private Nullable<DateTime> getStart()
         {
             if (!cbStart.Checked) { return null; }
-            else { return this.startDatePicker.Value; }
+            else { return this.startDatePicker.Value.Date; }
         }
         private Nullable<DateTime> getPayment()
         {
             if (!cbPayment.Checked) { return null; }
-            else { return this.paymentDatePicker.Value; }
+            else { return this.paymentDatePicker.Value.Date; }
         }
 
         private void UpdateAttachmentsList() {

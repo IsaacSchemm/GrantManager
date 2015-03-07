@@ -1,4 +1,4 @@
-Instructions for using Grant Manager with SQL Server Express:
+Instructions for using Grant Manager 2.0 with SQL Server Express:
 
 1. Install SQL Server 2008 Express (and Management Studio) from here: http://www.microsoft.com/en-us/download/details.aspx?id=22973
 Versions newer than 2008 will probably work as well.
@@ -11,8 +11,7 @@ The script 16-create db user.sql creates a database user/password. By default, t
 
 4. Run the script "version 2.0.sql" in the updates folder. This will update the database from a v1.0 schema to a v2.0 schema (by adding tables for attachments, timeline dates, and budget items, and dropping some unused columns.)
 
-5. On each computer, copy GrantApp.exe, GrantApp.exe.config, GrantApp.pdb and MonthCalendar.dll to a folder. (You can find them in GrantApp/bin/Release.)
-Database2.mdf and Database2_log.ldf are not needed - they contain an empty database stored locally, and you have a database on your server.
+5. On each computer, copy GrantApp.exe, GrantApp.exe.config, KellermanSoftware.Compare-NET-Objects.dll and MonthCalendar.dll to a folder. (You can find them in GrantApp/bin/Release.)
 
 6. GrantApp.exe.config is a text file. Since you're not using Database2.mdf, change it to look something like this:
 	<?xml version="1.0" encoding="utf-8" ?>

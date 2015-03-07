@@ -1,5 +1,4 @@
 1. Run the script "version 2.0.sql" in the updates folder. This will update the database from a v1.0 schema to a v2.0 schema (by adding tables for attachments, timeline dates, and budget items, and dropping some unused columns.)
 
-2. On each computer, replace the existing GrantApp.exe, GrantApp.pdb and MonthCalendar.dll with the new versions. (You can find them in GrantApp/bin/Release.)
-Database2.mdf and Database2_log.ldf are not needed - they contain an empty database stored locally, and you have a database on your server.
-Keep the existing GrantApp.exe.config if any; otherwise, follow steps 5 and 6 in Instructions.txt instead of this step.
+2. On each computer, replace the existing GrantApp.exe and MonthCalendar.dll with the new versions. Also copy over KellermanSoftware.Compare-NET-Objects.dll. (You can find them in GrantApp/bin/Release.)
+Keep the existing GrantApp.exe.config if any. (Otherwise, follow steps 5 and 6 in Instructions.txt instead of this step.)

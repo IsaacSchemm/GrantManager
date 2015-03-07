@@ -81,7 +81,7 @@ namespace GrantApp
             using (DataClasses1DataContext db = new DataClasses1DataContext())
             {
                 //find date on month earlier
-                DateTime dateOneMonthEarlier = DateTime.Now.AddDays(-30);
+				DateTime dateOneMonthEarlier = DateTime.Now.AddDays(Settings.EraseChangelogEntriesThisManyDaysOld);
 
                 //remove entries before this date
                 var deleteEntries =
@@ -103,8 +103,8 @@ namespace GrantApp
                 catch (Exception e)
                 {
                     MessageBox.Show("A database error occured: old changelog values were not removed on start up.");
-                    Console.WriteLine(e);
-                    // Provide for exceptions.
+					Console.WriteLine(e.Message);
+					Console.WriteLine(e.StackTrace);
                 }
             }
         }

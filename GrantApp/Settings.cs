@@ -8,5 +8,10 @@ namespace GrantApp {
 				return true;
 			}
 		}
+		public static int EraseChangelogEntriesThisManyDaysOld {
+			get {
+				return 30;
+			}
+		}
 	}
 }

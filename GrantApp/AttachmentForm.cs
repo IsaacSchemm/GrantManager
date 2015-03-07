@@ -26,16 +26,16 @@ namespace GrantApp
         /// Opens window.
         /// </summary>
         /// <param name="grant_id">Id of grant that holds focus.</param>
-		/// <param name="attachment_id">Id of attachment to edit (if any.)</param>
+        /// <param name="attachment_id">Id of attachment to edit (if any.)</param>
         public AttachmentForm(int grant_id, int? attachment_id = null)
         {
             InitializeComponent();
             this.db = new DataClasses1DataContext();
             this.FormClosed += AttachmentForm_FormClosed;
             this.grant_id = grant_id;
-			this.attachment = attachment_id != null
-				? (from a in db.attachments where a.attachment_id == attachment_id select a).Single()
-				: null;
+            this.attachment = attachment_id != null
+                ? (from a in db.attachments where a.attachment_id == attachment_id select a).Single()
+                : null;
 
             RefreshLabels();
         }
@@ -108,7 +108,7 @@ namespace GrantApp
             {
                 changelog log = new changelog()
                 {
-                    object_edited = attachment.filename,
+                    object_edited = attachment.filename + " on grant ID " + this.grant_id,
                     username = Login.currentUser,
                     date = DateTime.Now,
                 };

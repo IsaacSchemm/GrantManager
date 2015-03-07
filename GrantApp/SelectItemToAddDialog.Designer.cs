@@ -95,7 +95,7 @@
 			this.Controls.Add(this.listBox1);
 			this.Controls.Add(this.txtSearch);
 			this.Name = "SelectItemToAddDialog";
-			this.Text = "SelectItemToAddDialog";
+			this.Text = "Select";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

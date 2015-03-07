@@ -400,7 +400,7 @@ namespace GrantApp
                         date = DateTime.Now,
                     };
                     //write old and new summaries if editing, otherwise just write new summary
-                    log.details = "Add/edit: " + Comparison<grant>.Compare(oldGrant, newGrant);
+                    log.details = Comparison<grant>.Compare(oldGrant, newGrant);
                     db.changelogs.InsertOnSubmit(log);
 
                     //update database

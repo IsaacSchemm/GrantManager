@@ -199,7 +199,7 @@ namespace GrantApp
                                       where g.grantor_id == grantor_id_added_or_edited
                                       select g).First();
                     changelog log = new changelog() {
-                        object_edited = "grant " + this.txtName.Text,
+                        object_edited = "grantor " + this.txtName.Text,
                         username = Login.currentUser,
                         date = DateTime.Now,
                     };

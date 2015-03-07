@@ -127,6 +127,12 @@ namespace GrantApp
                         return;
                     }
 
+					if (grant.attachments.Any()) {
+						if (MessageBox.Show(this, "This grant has " + grant.attachments.Count + " attachments. Do you still want to delete it?", this.Text, MessageBoxButtons.YesNo) != DialogResult.Yes) {
+							return;
+						}
+					}
+
                     try
                     {
                         //write to changelog
@@ -151,7 +157,16 @@ namespace GrantApp
                         db.grants.DeleteOnSubmit(grant);
 
                         //delete grant's contact history
-                        db.contact_histories.DeleteAllOnSubmit(grant.contact_histories);
+						db.contact_histories.DeleteAllOnSubmit(grant.contact_histories);
+
+						//delete grant's attachments
+						db.attachments.DeleteAllOnSubmit(grant.attachments);
+
+						//delete grant's timeline entries
+						db.timeline_dates.DeleteAllOnSubmit(grant.timeline_dates);
+
+						//delete grant's budget items
+						db.budget_items.DeleteAllOnSubmit(grant.budget_items);
 
                         //delete entries from linking tables (programs, projects, doc types)
                         db.grant_programs.DeleteAllOnSubmit(grant.grant_programs);
@@ -163,7 +178,8 @@ namespace GrantApp
                     }
                     catch (SqlException e)
                     {
-                        Console.Error.WriteLine(e.Message);
+						Console.Error.WriteLine(e.Message);
+						Console.Error.WriteLine(e.StackTrace);
                         MessageBox.Show(this, "Could not remove the grant: - a database error occured.",
                             this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }

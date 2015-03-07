@@ -36,8 +36,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.contactNameText = new System.Windows.Forms.TextBox();
-            this.outcomeText = new System.Windows.Forms.TextBox();
-            this.notesText = new System.Windows.Forms.TextBox();
+			this.outcomeText = new TextBoxWithExpandButton();
+			this.notesText = new TextBoxWithExpandButton();
             this.submitButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.contactedByDropdown = new GrantApp.BetterComboBox();
@@ -221,8 +221,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox contactNameText;
         private BetterComboBox approachDropdown;
-        private System.Windows.Forms.TextBox outcomeText;
-        private System.Windows.Forms.TextBox notesText;
+		private TextBoxWithExpandButton outcomeText;
+		private TextBoxWithExpandButton notesText;
         private BetterComboBox contactedByDropdown;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Button cancelButton;

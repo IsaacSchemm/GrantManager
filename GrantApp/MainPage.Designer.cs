@@ -89,9 +89,9 @@ namespace GrantApp
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(133, 253);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(110, 13);
+			this.label2.Size = new System.Drawing.Size(107, 13);
 			this.label2.TabIndex = 5;
-			this.label2.Text = "Selected Day\'s Alerts:";
+			this.label2.Text = "Selected day\'s alerts:";
 			// 
 			// upcomingAlerts
 			// 

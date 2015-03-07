@@ -1,3 +1,4 @@
+using KellermanSoftware.CompareNetObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,14 +71,14 @@ namespace GrantApp
             };
             requestedAmountText.Validating += (o, e) => {
                 decimal tmp;
-				if (!decimal.TryParse(requestedAmountText.Text.Replace("$", ""), out tmp)) {
+                if (!decimal.TryParse(requestedAmountText.Text.Replace("$", ""), out tmp)) {
                     e.Cancel = true;
                     MessageBox.Show(this, "You must enter a valid number for Requested Amount.");
                 }
             };
             actualAmountText.Validating += (o, e) => {
                 decimal tmp;
-				if (actualAmountText.TextLength > 0 && !decimal.TryParse(actualAmountText.Text.Replace("$", ""), out tmp)) {
+                if (actualAmountText.TextLength > 0 && !decimal.TryParse(actualAmountText.Text.Replace("$", ""), out tmp)) {
                     e.Cancel = true;
                     MessageBox.Show(this, "You must enter a valid number for Actual Amount, or leave the field empty.");
                 }
@@ -217,7 +218,7 @@ namespace GrantApp
 
             decimal? actual;
             decimal tmp;
-			if (Decimal.TryParse(this.actualAmountText.Text.Replace("$", ""), out tmp)) {
+            if (Decimal.TryParse(this.actualAmountText.Text.Replace("$", ""), out tmp)) {
                 actual = tmp;
             } else {
                 actual = null;
@@ -226,7 +227,14 @@ namespace GrantApp
             int grant_id_added_or_edited;
 
             //summary of old grant - used to write to change log
-            string oldGrantSummary;
+            grant oldGrant;
+            using (DataClasses1DataContext db = new DataClasses1DataContext())
+            {
+                oldGrant = (from g in db.grants
+                            where g.grant_id == currentlyEditingID
+                            select g).FirstOrDefault();
+            }
+
             using (DataClasses1DataContext db = new DataClasses1DataContext())
             {
                 //editing old grant
@@ -236,9 +244,6 @@ namespace GrantApp
                     grant currentlyEditing = (from g in db.grants
                                                 where g.grant_id == currentlyEditingID
                                                 select g).First();
-
-                    //record summary
-                    oldGrantSummary = currentlyEditing.ToString();
 
                     //change values
                     currentlyEditing.grant_name = this.grantNameText.Text;
@@ -313,7 +318,6 @@ namespace GrantApp
                 //add new grant
                 else
                 {
-                    oldGrantSummary = null;
                     grant g = new grant
                     {
                         grant_name = this.grantNameText.Text,
@@ -387,20 +391,16 @@ namespace GrantApp
             // This needs to be in a new DataContext because the linking tables have been updated.
             if (Settings.EnableChangelog) {
                 using (DataClasses1DataContext db = new DataClasses1DataContext()) {
-                    string newGrantSummary = (from g in db.grants
-                                              where g.grant_id == grant_id_added_or_edited
-                                              select g).First().ToString();
+                    var newGrant = (from g in db.grants
+                                    where g.grant_id == grant_id_added_or_edited
+                                    select g).First();
                     changelog log = new changelog() {
                         object_edited = "grant " + this.grantNameText.Text,
                         username = Login.currentUser,
                         date = DateTime.Now,
                     };
                     //write old and new summaries if editing, otherwise just write new summary
-                    if (oldGrantSummary != null) {
-                        log.details = oldGrantSummary + " => " + newGrantSummary;
-                    } else {
-                        log.details = "Added: " + newGrantSummary;
-                    }
+                    log.details = "Add/edit: " + Comparison<grant>.Compare(oldGrant, newGrant);
                     db.changelogs.InsertOnSubmit(log);
 
                     //update database

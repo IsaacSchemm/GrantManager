@@ -35,23 +35,23 @@ namespace GrantApp
 
             //validation for adding grantors
             //must have a name, and average gift field must be a number or null
-			this.FormClosing += BeforeClose;
+            this.FormClosing += BeforeClose;
 
-			#region validation
-			txtName.Validating += (o, e) => {
-				if (txtName.Text.Length == 0) {
-					e.Cancel = true;
-					MessageBox.Show(this, "You must enter a name for the grantor.");
-				}
-			};
-			txtAvgGift.Validating += (o, e) => {
-				decimal tmp;
-				if (txtAvgGift.Text.Length > 0 && !decimal.TryParse(txtAvgGift.Text, out tmp)) {
-					e.Cancel = true;
-					MessageBox.Show(this, "You must enter a valid number for Average Gift, or leave the field blank.");
-				}
-			};
-			#endregion
+            #region validation
+            txtName.Validating += (o, e) => {
+                if (txtName.Text.Length == 0) {
+                    e.Cancel = true;
+                    MessageBox.Show(this, "You must enter a name for the grantor.");
+                }
+            };
+            txtAvgGift.Validating += (o, e) => {
+                decimal tmp;
+                if (txtAvgGift.Text.Length > 0 && !decimal.TryParse(txtAvgGift.Text, out tmp)) {
+                    e.Cancel = true;
+                    MessageBox.Show(this, "You must enter a valid number for Average Gift, or leave the field blank.");
+                }
+            };
+            #endregion
         }
 
         /// <summary>
@@ -109,29 +109,34 @@ namespace GrantApp
         private void BeforeClose(object sender, FormClosingEventArgs e)
         {
             //if window was not closed from OK button, don't update database
-			if (DialogResult != DialogResult.OK) {
-				return;
-			}
+            if (DialogResult != DialogResult.OK) {
+                return;
+            }
             //don't update database if validation doesn't pass
             else if (!ValidateChildren()) {
-				e.Cancel = true;
-				return;
-			}
+                e.Cancel = true;
+                return;
+            }
 
             // error checking for inputs
             //average gift must be a number
             decimal tmp;
-			decimal? avggift;
-			if (Decimal.TryParse(this.txtAvgGift.Text, out tmp)) {
-				avggift = tmp;
-			} else {
-				avggift = null;
-			}
+            decimal? avggift;
+            if (Decimal.TryParse(this.txtAvgGift.Text, out tmp)) {
+                avggift = tmp;
+            } else {
+                avggift = null;
+            }
 
             int grantor_id_added_or_edited;
 
             //summary of old grantor
-            string oldGrantorSummary;
+            grantor oldGrantor;
+            using (DataClasses1DataContext db = new DataClasses1DataContext()) {
+                oldGrantor = (from g in db.grantors
+                              where g.grantor_id == currentlyEditingID
+                              select g).FirstOrDefault();
+            }
             using (DataClasses1DataContext db = new DataClasses1DataContext()) {
 
                 //editing old grantor
@@ -141,9 +146,6 @@ namespace GrantApp
                     grantor currentlyEditing = (from g in db.grantors
                                                 where g.grantor_id == currentlyEditingID
                                                 select g).First();
-
-                    //record summary
-                    oldGrantorSummary = currentlyEditing.ToString();
 
                     //update values
                     currentlyEditing.address = this.txtAddress.Text;
@@ -157,7 +159,7 @@ namespace GrantApp
                     currentlyEditing.state_id = (string)this.dropState.SelectedValue;
                     currentlyEditing.zipcode = this.txtZip.Text;
                     currentlyEditing.types_of_support = this.txtTypeOfSupport.Text;
-					currentlyEditing.average_gift = avggift;
+                    currentlyEditing.average_gift = avggift;
                     currentlyEditing.giving_history = this.txtGivingHistory.Text;
                     currentlyEditing.buzzwords = this.txtBuzzwords.Text;
                     currentlyEditing.notes = this.txtNotes.Text;
@@ -166,7 +168,6 @@ namespace GrantApp
                 }
                 //adding new grantor
                 else {
-                    oldGrantorSummary = null;
                     grantor g = new grantor {
                         address = this.txtAddress.Text,
                         city = this.txtCity.Text,
@@ -179,7 +180,7 @@ namespace GrantApp
                         state_id = ((state)this.dropState.SelectedItem).state_id,
                         zipcode = this.txtZip.Text,
                         types_of_support = this.txtTypeOfSupport.Text,
-						average_gift = avggift,
+                        average_gift = avggift,
                         giving_history = this.txtGivingHistory.Text,
                         buzzwords = this.txtBuzzwords.Text,
                         notes = this.txtNotes.Text,
@@ -193,22 +194,18 @@ namespace GrantApp
                 }
 
                 //write to change log
-				if (Settings.EnableChangelog) {
-					string newGrantorSummary = (from g in db.grantors
-												where g.grantor_id == grantor_id_added_or_edited
-												select g).First().ToString();
-					changelog log = new changelog() {
-						object_edited = "grant " + this.txtName.Text,
-						username = Login.currentUser,
-						date = DateTime.Now,
-					};
-					if (oldGrantorSummary != null) {
-						log.details = oldGrantorSummary + " => " + newGrantorSummary;
-					} else {
-						log.details = "Added: " + newGrantorSummary;
-					}
-					db.changelogs.InsertOnSubmit(log);
-				}
+                if (Settings.EnableChangelog) {
+                    var newGrantor = (from g in db.grantors
+                                      where g.grantor_id == grantor_id_added_or_edited
+                                      select g).First();
+                    changelog log = new changelog() {
+                        object_edited = "grant " + this.txtName.Text,
+                        username = Login.currentUser,
+                        date = DateTime.Now,
+                    };
+                    log.details = "Add/edit: " + Comparison<grantor>.Compare(oldGrantor, newGrantor);
+                    db.changelogs.InsertOnSubmit(log);
+                }
 
                 db.SubmitChanges();
             }

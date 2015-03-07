@@ -55,7 +55,7 @@ namespace GrantApp
                 contact_history ch = (from c in db.contact_histories
                                       where c.grant_id == currentlyEditingId
                                       select c).FirstOrDefault();
-				
+                
                 //if contact history was not previously edited, one will not exist
                 if (ch != null)
                 {
@@ -66,10 +66,10 @@ namespace GrantApp
                     this.contactedByDropdown.SelectedValue = ch.contacted_by;
                     this.notesText.Text = ch.notes;
                 }
-				else
-				{
-					this.contactedByDropdown.SelectedValue = Login.currentUser;
-				}
+                else
+                {
+                    this.contactedByDropdown.SelectedValue = Login.currentUser;
+                }
             }
         }
 
@@ -78,6 +78,15 @@ namespace GrantApp
         /// </summary>
         public void EditContactHistory(object sender, EventArgs e)
         {
+            //old history
+            contact_history oldContactHistory;
+            using (DataClasses1DataContext db = new DataClasses1DataContext())
+            {
+                oldContactHistory = (from c in db.contact_histories
+                                     where c.grant_id == currentlyEditingId
+                                     select c).FirstOrDefault();
+            }
+
             using (DataClasses1DataContext db = new DataClasses1DataContext())
             {
                 //find contact history for grant
@@ -85,13 +94,9 @@ namespace GrantApp
                           where c.grant_id == currentlyEditingId
                           select c).FirstOrDefault();
 
-                //summary of old history
-                string oldContactHistorySummary;
-
                 //if this grant didn't have a contact history, add it here
                 if (ch == null)
                 {
-                    oldContactHistorySummary = null;
                     ch = new contact_history
                     {
                         grant_id = (int)currentlyEditingId,
@@ -108,8 +113,6 @@ namespace GrantApp
                 //otherwise just edit values
                 else
                 {
-                    oldContactHistorySummary = ch.ToString();
-
                     //approach id is foreign key, so must reassign object and not value
                     //otherwise error will be thrown (ForeignKeyReferenceAlreadyHasValueException)
                     ch.approach = db.approaches.Single(a => a.approach_id == (int)this.approachDropdown.SelectedValue);
@@ -122,26 +125,21 @@ namespace GrantApp
                     ch.user = db.users.Single(u => u.username == (string)this.contactedByDropdown.SelectedValue);
 
                     ch.notes = this.notesText.Text;
-				}
+                }
 
-				//submit changes here to update "approach" field, so changelog is rendered correctly
-				db.SubmitChanges();
+                //submit changes here to update "approach" field, so changelog is rendered correctly
+                db.SubmitChanges();
 
                 //write to change log
-				if (Settings.EnableChangelog) {
-					string newContactHistorySummary = ch.ToString();
-					changelog log = new changelog() {
-						object_edited = "contact history for " + db.grants.Where(g => g.grant_id == currentlyEditingId).First().grant_name,
-						username = Login.currentUser,
-						date = DateTime.Now,
-					};
-					if (oldContactHistorySummary != null) {
-						log.details = oldContactHistorySummary + " => " + newContactHistorySummary;
-					} else {
-						log.details = "Added: " + newContactHistorySummary;
-					}
-					db.changelogs.InsertOnSubmit(log);
-				}
+                if (Settings.EnableChangelog) {
+                    changelog log = new changelog() {
+                        object_edited = "contact history for " + db.grants.Where(g => g.grant_id == currentlyEditingId).First().grant_name,
+                        username = Login.currentUser,
+                        date = DateTime.Now,
+                    };
+                    log.details = "Add/edit: " + Comparison<contact_history>.Compare(oldContactHistory, ch);
+                    db.changelogs.InsertOnSubmit(log);
+                }
 
                 //submit changelog and contact history changes to database
                 db.SubmitChanges();

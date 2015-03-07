@@ -52,6 +52,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects">
+      <HintPath>..\packages\CompareNETObjects.1.7.4.0\lib\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -141,6 +144,7 @@
     <Compile Include="BetterComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Comparison.cs" />
     <Compile Include="ContactHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -352,6 +356,7 @@
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\AddGrant.datasource" />
     <None Include="Properties\DataSources\AddGrantor.datasource" />
     <None Include="Properties\DataSources\approach.datasource" />

@@ -35,11 +35,11 @@ namespace GrantApp
             RefreshGrants();
         }
 
-		private string shortDate(DateTime? dt) {
-			return dt == null
-				? ""
-				: dt.Value.ToShortDateString();
-		}
+        private string shortDate(DateTime? dt) {
+            return dt == null
+                ? ""
+                : dt.Value.ToShortDateString();
+        }
 
         /// <summary>
         /// Reloads the list of grants.
@@ -130,16 +130,22 @@ namespace GrantApp
                     try
                     {
                         //write to changelog
-						if (Settings.EnableChangelog) {
-							string contact_history_summary = ((object)grant.contact_histories.FirstOrDefault() ?? "none").ToString();
-							changelog log = new changelog {
-								username = Login.currentUser,
-								object_edited = "grant " + grant.grant_name,
-								date = DateTime.Now,
-								details = "Deleted: " + grant.ToString() + " - contact history: " + contact_history_summary
-							};
-							db.changelogs.InsertOnSubmit(log);
-						}
+                        if (Settings.EnableChangelog) {
+                            string contact_history_summary = grant.contact_histories.Any()
+                                ? Comparison<contact_history>.Compare(null, grant.contact_histories.First())
+                                : "none";
+                            changelog log = new changelog {
+                                username = Login.currentUser,
+                                object_edited = "grant " + grant.grant_name,
+                                date = DateTime.Now,
+                                details = "Deleted: " + Comparison<grant>.Compare(null, grant)
+                                    + " // contact history: " + contact_history_summary
+                                    + " // attachments: " + string.Join(", ", grant.attachments.Select(s => s.filename).DefaultIfEmpty("none"))
+                                    + " // timeline: " + string.Join(", ", grant.timeline_dates.Select(d => d.name + " " + d.date).DefaultIfEmpty("none"))
+                                    + " // budget items: " + string.Join(", ", grant.budget_items.Select(b => b.name + " " + b.amount).DefaultIfEmpty("none"))
+                            };
+                            db.changelogs.InsertOnSubmit(log);
+                        }
 
                         //delete grant
                         db.grants.DeleteOnSubmit(grant);
@@ -183,10 +189,10 @@ namespace GrantApp
         /// </summary>
         private void GrantManager_Load(object sender, EventArgs e)
         {
-			grantGrid.Columns[7].HeaderText = "";
-			if (grantGrid.Rows.Count > 0) { // check in case there are no grants listed
-				grantGrid.Columns[7].Width = grantGrid.Rows[0].Height;
-			}
+            grantGrid.Columns[7].HeaderText = "";
+            if (grantGrid.Rows.Count > 0) { // check in case there are no grants listed
+                grantGrid.Columns[7].Width = grantGrid.Rows[0].Height;
+            }
         }
 
         /// <summary>
@@ -194,15 +200,15 @@ namespace GrantApp
         /// </summary>
         private void btnAdd_Click_1(object sender, EventArgs e)
         {
-			using (DataClasses1DataContext db = new DataClasses1DataContext()) {
-				if (!db.status_types.Any()) {
-					MessageBox.Show(this, "The status_type table in the database is empty. Ask the administrator to add values to this table (e.g. Active, Inactive, Potential...)");
-					return;
-				} else if (!db.grantors.Any()) {
-					MessageBox.Show(this, "No grantors are listed in the database. Please add one from the Grantors screen.");
-					return;
-				}
-			}
+            using (DataClasses1DataContext db = new DataClasses1DataContext()) {
+                if (!db.status_types.Any()) {
+                    MessageBox.Show(this, "The status_type table in the database is empty. Ask the administrator to add values to this table (e.g. Active, Inactive, Potential...)");
+                    return;
+                } else if (!db.grantors.Any()) {
+                    MessageBox.Show(this, "No grantors are listed in the database. Please add one from the Grantors screen.");
+                    return;
+                }
+            }
 
             // carry current window state over to next view
             AddGrant ag = new AddGrant();
@@ -216,10 +222,10 @@ namespace GrantApp
         /// <summary>
         /// Edit a grant.
         /// </summary>
-		private void btnEdit_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
             //find id
-			int id = 0;
+            int id = 0;
             foreach (DataGridViewRow row in grantGrid.SelectedRows)
             {
                 id = (int)row.Cells["ID"].Value;
@@ -232,7 +238,7 @@ namespace GrantApp
 
             //refresh list
             RefreshGrants();
-		}
+        }
 
         /// <summary>
         /// Filters the displayed grants based on the search text.
@@ -253,25 +259,25 @@ namespace GrantApp
             }
         }
 
-		/// <summary>
-		/// Clears the search box and restores the original non-filtered view.
-		/// </summary>
-		private void btnClear_Click(object sender, EventArgs e) {
-			searchBox.Text = "";
-			btnSearch_Click(sender, e);
-		}
+        /// <summary>
+        /// Clears the search box and restores the original non-filtered view.
+        /// </summary>
+        private void btnClear_Click(object sender, EventArgs e) {
+            searchBox.Text = "";
+            btnSearch_Click(sender, e);
+        }
 
         /// <summary>
         /// Opens the window that allows editing contact history.
         /// </summary>
         private void editContactHistory(object sender, EventArgs e)
         {
-			using (DataClasses1DataContext db = new DataClasses1DataContext()) {
-				if (!db.approaches.Any()) {
-					MessageBox.Show(this, "No possible approaches (e.g. email, phone, in-person...) are available. Please add one from the Administration panel.");
-					return;
-				}
-			}
+            using (DataClasses1DataContext db = new DataClasses1DataContext()) {
+                if (!db.approaches.Any()) {
+                    MessageBox.Show(this, "No possible approaches (e.g. email, phone, in-person...) are available. Please add one from the Administration panel.");
+                    return;
+                }
+            }
 
             //find id
             int id = 0;
@@ -301,27 +307,27 @@ namespace GrantApp
             new GrantDetails(id).ShowDialog(this);
         }
 
-		private void btnTimeline_Click(object sender, EventArgs e) {
-			//find id
-			int id = 0;
-			foreach (DataGridViewRow row in grantGrid.SelectedRows) {
-				id = (int)row.Cells["ID"].Value;
-			}
+        private void btnTimeline_Click(object sender, EventArgs e) {
+            //find id
+            int id = 0;
+            foreach (DataGridViewRow row in grantGrid.SelectedRows) {
+                id = (int)row.Cells["ID"].Value;
+            }
 
-			//open window
-			new TimelineManager(id).ShowDialog(this);
-		}
+            //open window
+            new TimelineManager(id).ShowDialog(this);
+        }
 
-		private void btnBudget_Click(object sender, EventArgs e) {
-			//find id
-			int id = 0;
-			foreach (DataGridViewRow row in grantGrid.SelectedRows) {
-				id = (int)row.Cells["ID"].Value;
-			}
+        private void btnBudget_Click(object sender, EventArgs e) {
+            //find id
+            int id = 0;
+            foreach (DataGridViewRow row in grantGrid.SelectedRows) {
+                id = (int)row.Cells["ID"].Value;
+            }
 
-			//open window
-			new BudgetManager(id).ShowDialog(this);
-		}
+            //open window
+            new BudgetManager(id).ShowDialog(this);
+        }
 
     }
 }

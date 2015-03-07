@@ -60,8 +60,8 @@ namespace GrantApp
                 {
                     var q = from g in db.grantors
                             where g.organization_name.Contains(searchBox.Text)
-							|| g.buzzwords.Contains(searchBox.Text)
-							|| g.notes.Contains(searchBox.Text)
+                            || g.buzzwords.Contains(searchBox.Text)
+                            || g.notes.Contains(searchBox.Text)
                             orderby g.organization_name
                             select new
                             {
@@ -84,84 +84,84 @@ namespace GrantApp
         /// <summary>
         /// Remove a grantor from the database.
         /// </summary>
-		private void RemoveSelected()
+        private void RemoveSelected()
         {
             //only one grantor can be selected
-			if (grantorGrid.SelectedRows.Count != 1)
+            if (grantorGrid.SelectedRows.Count != 1)
             {
-				MessageBox.Show("Please select a single row.");
-				return;
-			}
+                MessageBox.Show("Please select a single row.");
+                return;
+            }
 
-			using (DataClasses1DataContext db = new DataClasses1DataContext())
+            using (DataClasses1DataContext db = new DataClasses1DataContext())
             {
-				foreach (DataGridViewRow row in grantorGrid.SelectedRows)
+                foreach (DataGridViewRow row in grantorGrid.SelectedRows)
                 {
                     //find id
-					int id = (int)row.Cells["ID"].Value;
-					var grantor = (from g in db.grantors
-								   where g.grantor_id == id
-								   select g).First();
+                    int id = (int)row.Cells["ID"].Value;
+                    var grantor = (from g in db.grantors
+                                   where g.grantor_id == id
+                                   select g).First();
 
-					var grants = from g in db.grants
-								 where g.grantor_id == grantor.grantor_id
-								 select g;
+                    var grants = from g in db.grants
+                                 where g.grantor_id == grantor.grantor_id
+                                 select g;
 
                     //cannot remove grantors who are listed on a grant
-					if (grants.Any())
+                    if (grants.Any())
                     {
-						MessageBox.Show(this, "Could not remove the grantor: " + 
-							(grants.Count() == 1
-								? "the grant \"" + grants.First().grant_name + "\" is "
-								: grants.Count() + " grants are ")
-							+ "still listed in the database that reference this grantor.",
-							this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-						return;
-					}
+                        MessageBox.Show(this, "Could not remove the grantor: " + 
+                            (grants.Count() == 1
+                                ? "the grant \"" + grants.First().grant_name + "\" is "
+                                : grants.Count() + " grants are ")
+                            + "still listed in the database that reference this grantor.",
+                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     //get user confirmation
-					if (MessageBox.Show(this, "Are you sure you want to delete " + grantor.organization_name + " from the database?", this.Text, MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    if (MessageBox.Show(this, "Are you sure you want to delete " + grantor.organization_name + " from the database?", this.Text, MessageBoxButtons.YesNo) != DialogResult.Yes)
                     {
-						return;
-					}
+                        return;
+                    }
 
                     //write to changelog
-					try {
-						if (Settings.EnableChangelog) {
-							changelog log = new changelog {
-								username = Login.currentUser,
-								object_edited = "grantor " + grantor.organization_name,
-								date = DateTime.Now,
-								details = "Deleted: " + grantor.ToString()
-							};
-							db.changelogs.InsertOnSubmit(log);
-						}
+                    try {
+                        if (Settings.EnableChangelog) {
+                            changelog log = new changelog {
+                                username = Login.currentUser,
+                                object_edited = "grantor " + grantor.organization_name,
+                                date = DateTime.Now,
+                                details = "Deleted: " + Comparison<grantor>.Compare(null, grantor)
+                            };
+                            db.changelogs.InsertOnSubmit(log);
+                        }
 
                         //delete grantor
-						db.grantors.DeleteOnSubmit(grantor);
+                        db.grantors.DeleteOnSubmit(grantor);
 
                         //submit changes
-						db.SubmitChanges();
-					} catch (SqlException e) {
-						Console.Error.WriteLine(e.Message);
-						MessageBox.Show(this, "Could not remove the grantor: - a database error occured.",
-							this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-				}
-			}
-		}
+                        db.SubmitChanges();
+                    } catch (SqlException e) {
+                        Console.Error.WriteLine(e.Message);
+                        MessageBox.Show(this, "Could not remove the grantor: - a database error occured.",
+                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Delete a grantor.
         /// </summary>
-		private void btnDelete_Click(object sender, EventArgs args)
+        private void btnDelete_Click(object sender, EventArgs args)
         {
             //remove grantor
-			RemoveSelected();
+            RemoveSelected();
 
             //refresh list
-			RefreshGrantors();
-		}
+            RefreshGrantors();
+        }
 
         /// <summary>
         /// Add grantor.
@@ -227,12 +227,12 @@ namespace GrantApp
             }
         }
 
-		/// <summary>
-		/// Clears the search box and restores the original non-filtered view.
-		/// </summary>
-		private void btnClear_Click(object sender, EventArgs e) {
-			searchBox.Text = "";
-			btnSearch_Click(sender, e);
-		}
+        /// <summary>
+        /// Clears the search box and restores the original non-filtered view.
+        /// </summary>
+        private void btnClear_Click(object sender, EventArgs e) {
+            searchBox.Text = "";
+            btnSearch_Click(sender, e);
+        }
     }
 }

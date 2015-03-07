@@ -15,8 +15,8 @@ namespace GrantApp
     /// </summary>
     public partial class ProjectManager : Form
     {
-		private bool UseAsSelectProjectWindow = false;
-		private int? SelectedProjectIDOnClose = null;
+        private bool UseAsSelectProjectWindow = false;
+        private int? SelectedProjectIDOnClose = null;
 
         /// <summary>
         /// Initializes window.
@@ -33,22 +33,22 @@ namespace GrantApp
             searchProject.Click += new EventHandler(Search_Project);
             searchBox.KeyDown += new KeyEventHandler(search_Enter);
 
-			projectGrid.DoubleClick += (o, e) => {
-				if (UseAsSelectProjectWindow) {
-					var rows = projectGrid.SelectedRows;
-					if (rows.Count > 0) SelectedProjectIDOnClose = (int)rows[0].Cells["ID"].Value;
-					this.Close();
-				}
-			};
+            projectGrid.DoubleClick += (o, e) => {
+                if (UseAsSelectProjectWindow) {
+                    var rows = projectGrid.SelectedRows;
+                    if (rows.Count > 0) SelectedProjectIDOnClose = (int)rows[0].Cells["ID"].Value;
+                    this.Close();
+                }
+            };
         }
 
-		public static int? SelectProject() {
-			using (ProjectManager form = new ProjectManager()) {
-				form.UseAsSelectProjectWindow = true;
-				form.ShowDialog();
-				return form.SelectedProjectIDOnClose;
-			}
-		}
+        public static int? SelectProject() {
+            using (ProjectManager form = new ProjectManager()) {
+                form.UseAsSelectProjectWindow = true;
+                form.ShowDialog();
+                return form.SelectedProjectIDOnClose;
+            }
+        }
 
         /// <summary>
         /// Reloads list of projects to reflect updated database.
@@ -159,19 +159,19 @@ namespace GrantApp
                     try
                     {
                         //write to changelog
-						var grants = from gp in deleted.grant_projects
-									 select gp.grant.grant_name;
-						if (Settings.EnableChangelog) {
-							changelog log = new changelog {
-								username = Login.currentUser,
-								object_edited = "project " + deleted.project_name,
-								date = DateTime.Now,
-								details = "Deleted: " + deleted.ToString() +
-								(grants.Any() ? " - was tied to grants: " + string.Join(", ", grants)
-											  : " - not tied to any grants")
-							};
-							db.changelogs.InsertOnSubmit(log);
-						}
+                        var grants = from gp in deleted.grant_projects
+                                     select gp.grant.grant_name;
+                        if (Settings.EnableChangelog) {
+                            changelog log = new changelog {
+                                username = Login.currentUser,
+                                object_edited = "project " + deleted.project_name,
+                                date = DateTime.Now,
+                                details = "Deleted: " + Comparison<project>.Compare(null, deleted) +
+                                (grants.Any() ? " // was tied to grants: " + string.Join(", ", grants)
+                                              : " // not tied to any grants")
+                            };
+                            db.changelogs.InsertOnSubmit(log);
+                        }
 
                         //delete project
                         db.projects.DeleteOnSubmit(deleted);
@@ -222,12 +222,12 @@ namespace GrantApp
             }
         }
 
-		/// <summary>
-		/// Clears the search box and restores the original non-filtered view.
-		/// </summary>
-		private void btnClear_Click(object sender, EventArgs e) {
-			searchBox.Text = "";
-			Search_Project(sender, e);
-		}
+        /// <summary>
+        /// Clears the search box and restores the original non-filtered view.
+        /// </summary>
+        private void btnClear_Click(object sender, EventArgs e) {
+            searchBox.Text = "";
+            Search_Project(sender, e);
+        }
     }
 }

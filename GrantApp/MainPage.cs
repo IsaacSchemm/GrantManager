@@ -23,14 +23,18 @@ namespace GrantApp
 		private class Alert {
 			public string message;
 			public int grant_id;
+			public bool is_timeline_date;
+			public DateTime date;
 
-			public Alert(string message, int grant_id) {
+			public Alert(string message, int grant_id, DateTime date, bool is_timeline_date) {
 				this.message = message;
 				this.grant_id = grant_id;
+				this.date = date;
+				this.is_timeline_date = is_timeline_date;
 			}
 
 			public override string ToString() {
-				return message;
+				return String.Format("{0} ({1:MMM dd, yyyy})", message, date);
 			}
 		}
 
@@ -67,6 +71,10 @@ namespace GrantApp
 			monthCalendar2.DaySelected += monthCalendar2_DaySelected;
 
             todayAlerts.DoubleClick += todaysAlerts_DoubleClick;
+			upcomingAlerts.DoubleClick += upcomingAlerts_DoubleClick;
+
+			//only show message on today's alerts, not date
+			todayAlerts.DisplayMember = "message";
 
             //clear old values from changelog
             cleanseChangelog();
@@ -167,7 +175,7 @@ namespace GrantApp
 
                         //add alert to list
 						if (!alerts.ContainsKey(d)) alerts.Add(d, new List<Alert>());
-						alerts[d].Add(new Alert("Due date for " + g.grant_name, g.grant_id));
+						alerts[d].Add(new Alert("Due date for " + g.grant_name, g.grant_id, d, false));
 					}
 				}
 
@@ -180,7 +188,7 @@ namespace GrantApp
 
 					//add alert to list
 					if (!alerts.ContainsKey(d)) alerts.Add(d, new List<Alert>());
-					alerts[d].Add(new Alert(td.name, td.grant_id));
+					alerts[d].Add(new Alert(td.name, td.grant_id, d, true));
 				}
 			}
 			monthCalendar2.AddDateInfo(list.Values.ToArray());
@@ -191,7 +199,7 @@ namespace GrantApp
 					select a;
 			foreach (var pair in q) {
 				foreach (Alert s in pair.Value) {
-					upcomingAlerts.Items.Add(String.Format("{0} ({1:MMM dd, yyyy})", s.message, pair.Key));
+					upcomingAlerts.Items.Add(s);
 				}
 			}
 		}
@@ -248,8 +256,27 @@ namespace GrantApp
             Alert a = todayAlerts.SelectedItem as Alert;
             if (a != null)
             {
-                new AddGrant(a.grant_id).ShowDialog(this);
+				if (a.is_timeline_date) {
+					new TimelineManager(a.grant_id).ShowDialog(this);
+				} else {
+					new AddGrant(a.grant_id).ShowDialog(this);
+				}
             }
         }
+
+		/// <summary>
+		/// Called when an alert in the "upcoming" list is double clicked.
+		/// Allows editing the grant (to possibly change completion date, etc).
+		/// </summary>
+		private void upcomingAlerts_DoubleClick(object sender, EventArgs e) {
+			Alert a = upcomingAlerts.SelectedItem as Alert;
+			if (a != null) {
+				if (a.is_timeline_date) {
+					new TimelineManager(a.grant_id).ShowDialog(this);
+				} else {
+					new AddGrant(a.grant_id).ShowDialog(this);
+				}
+			}
+		}
     }
 }

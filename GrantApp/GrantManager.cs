@@ -332,6 +332,8 @@ namespace GrantApp
 
             //open window
             new TimelineManager(id).ShowDialog(this);
+
+			RefreshGrants();
         }
 
         private void btnBudget_Click(object sender, EventArgs e) {

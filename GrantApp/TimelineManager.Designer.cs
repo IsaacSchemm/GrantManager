@@ -31,6 +31,8 @@
 			this.ColorPreview = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.lblGrantName = new System.Windows.Forms.LinkLabel();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -48,9 +50,9 @@
             this.ColorCol,
             this.ColorPreview});
 			this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-			this.dataGridView1.Location = new System.Drawing.Point(12, 12);
+			this.dataGridView1.Location = new System.Drawing.Point(12, 25);
 			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(562, 443);
+			this.dataGridView1.Size = new System.Drawing.Size(562, 430);
 			this.dataGridView1.TabIndex = 0;
 			this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
 			this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
@@ -110,6 +112,28 @@
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(12, 9);
+			this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(95, 13);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "Editing timeline for:";
+			// 
+			// lblGrantName
+			// 
+			this.lblGrantName.AutoEllipsis = true;
+			this.lblGrantName.Location = new System.Drawing.Point(107, 9);
+			this.lblGrantName.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+			this.lblGrantName.Name = "lblGrantName";
+			this.lblGrantName.Size = new System.Drawing.Size(467, 13);
+			this.lblGrantName.TabIndex = 4;
+			this.lblGrantName.TabStop = true;
+			this.lblGrantName.Text = "Grant Name";
+			this.lblGrantName.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblGrantName_LinkClicked);
+			// 
 			// TimelineManager
 			// 
 			this.AcceptButton = this.btnSave;
@@ -117,6 +141,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(586, 496);
+			this.Controls.Add(this.lblGrantName);
+			this.Controls.Add(this.label1);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.dataGridView1);
@@ -124,6 +150,7 @@
 			this.Text = "Grant Timeline";
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -137,5 +164,7 @@
 		private System.Windows.Forms.DataGridViewComboBoxColumn ColorCol;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ColorPreview;
 		private System.Windows.Forms.Button btnCancel;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.LinkLabel lblGrantName;
 	}
 }

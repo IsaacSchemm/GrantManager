@@ -24,6 +24,7 @@ namespace GrantApp {
 			}
 
 			using (var db = new DataClasses1DataContext()) {
+				lblGrantName.Text = db.grants.Single(g => g.grant_id == grant_id).grant_name;
 				foreach (timeline_date d in db.timeline_dates.Where(d => d.grant_id == grant_id).OrderBy(d => d.date)) {
 					int i = dataGridView1.Rows.Add();
 					dataGridView1.Rows[i].SetValues(d.timeline_date_id, d.date.ToString("d"), d.name, d.color);
@@ -130,6 +131,10 @@ namespace GrantApp {
 					}
 					break;
 			}
+		}
+
+		private void lblGrantName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+			new AddGrant(this.grant_id).ShowDialog(this);
 		}
 	}
 }

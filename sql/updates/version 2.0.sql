@@ -37,3 +37,7 @@ CREATE TABLE [dbo].[budget_item]
 	[sort_order] INT NOT NULL DEFAULT(0),
     CONSTRAINT [FK_budget_item_grant] FOREIGN KEY (grant_id) REFERENCES [grant](grant_id)
 )
+
+GRANT ALL ON [attachment] TO grantuser;
+GRANT ALL ON [timeline_date] TO grantuser;
+GRANT ALL ON [budget_item] TO grantuser;
